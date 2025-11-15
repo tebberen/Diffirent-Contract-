@@ -1,0 +1,397 @@
+PROJE TANIMI – VİZYON & AMAÇ BELGESİ  
+
+1. Projenin Kısa Açıklaması (2–3 cümle)
+Jello, kullanıcıların tek bir arayüz üzerinden onlarca farklı akıllı kontrat özelliğini kullanabildiği, modüler, genişleyebilir ve multi-chain yapıda tasarlanmış on-chain aksiyon platformudur. Platform, her biri ayrı bir akıllı kontrat olan modüller üzerinden kullanıcıya “tek tıkla, çok çeşitli işlem” imkânı sunarken; NFT tabanlı erişim ve işlem bazlı komisyon modeliyle sürdürülebilir, ölçeklenebilir ve öngörülebilir bir gelir yapısı oluşturur. Jello’nun temel vizyonu, Web3 kullanıcılarının cüzdan aktivitesini zenginleştirerek blockchain’in sadece “swap ve bridge”ten ibaret olmadığını göstermek ve zincirlerin üzerinde gerçek bir etkileşim katmanı (engagement layer) inşa etmektir.
+
+2. Uzun Açıklama (1–2 paragraf)
+Günümüzde çoğu kullanıcı için blockchain deneyimi; GM atmak, basit bir swap yapmak, bir iki NFT mintlemek ve zaman zaman bridge kullanmaktan ibaret. Bu, hem zincirin potansiyelini hem de cüzdanların gerçek kapasitesini sınırlayan dar bir kullanım alanı yaratıyor. Oysa akıllı kontratlar; sosyal etkileşimden geliştirici araçlarına, bağış mekanizmalarından on-chain kimliğe, deneysel protokollerden oyunlaştırılmış aksiyonlara kadar yüzlerce farklı kullanım senaryosuna sahip. Jello, tam da bu noktada devreye giriyor: Kullanıcıya tek bir platform üzerinden 50, 100, 500 hatta 1000+ farklı akıllı kontrat özelliğiyle etkileşime geçme imkânı sunan, modüler ve büyümeye açık bir “on-chain aksiyon merkezi” olarak konumlanıyor.
+Jello’nun çekirdeğinde, tüm modülleri yöneten bir ana kontrat (Main Hub) ve her özelliği bağımsız birer akıllı kontrat olarak sisteme bağlayan modüler mimari bulunuyor. Kullanıcı projeye geldiğinde, kurucu tarafından belirlenmiş 10 temel özelliği, işlem başına 0.1 CELO komisyon + gas ödeyerek kullanabiliyor. Sistemi deneyip mantığını anladıktan sonra, kullanıcı isterse Premium NFT Access Pass mint ederek sayfadaki tüm modülleri ve gelecekte eklenecek yeni özellikleri açabiliyor ve bu kez her işlemde sadece 0.01 CELO komisyon + gas ödüyor. Ekonomi tasarımı, eklenen her 50 yeni modülde NFT fiyatının +2 CELO artacak şekilde kurgulanmış durumda: Başlangıçta 50 modül için 5 CELO olan NFT, 100 modülde 7 CELO, 150 modülde 9 CELO oluyor. Böylece erken kullanıcılar daha düşük maliyetle sisteme girerken, platform büyüdükçe NFT’nin hem fonksiyonel hem ekonomik değeri artıyor.
+
+3. Kullanıcıya Sağladığı Fayda
+Basit ama derin bir kullanıcı deneyimi:
+	•	Tek arayüz, çoklu özellik: Kullanıcı, farklı dApp’ler arasında dolaşmak yerine; GM, deploy, donate, mint, deneysel işlemler, sosyal aksiyonlar gibi onlarca özelliğe Jello içinden erişir.
+	•	Güçlü cüzdan profili: Kullanıcı, Jello üzerinden farklı modüllerle etkileşime geçtikçe, cüzdanı daha fazla akıllı kontratla işlem yapmış olur. Bu da:
+	◦	Airdrop eligibility,
+	◦	Wallet reputation,
+	◦	On-chain kimlik kredibilitesi gibi metrikleri güçlendirir.
+	•	Kademeli erişim modeli:
+	◦	Premium NFT’si olmayan kullanıcı:
+	▪	Kurucu tarafından seçilen 10 temel özelliği kullanabilir.
+	▪	Her işlemde 0.1 CELO + gas komisyon öder.
+	◦	Premium NFT Access Pass sahibi kullanıcı:
+	▪	Sayfadaki tüm modüllere ve eklenen yeni özelliklere erişebilir.
+	▪	Her işlemde sadece 0.01 CELO + gas komisyon öder.
+	•	Erken kullanıcı avantajı: NFT fiyatı modül sayısına bağlı olarak zamanla arttığı için, erken katılan kullanıcı:
+	◦	Daha düşük maliyetle NFT alır,
+	◦	Platform büyüdükçe hem daha fazla özelliğe erişir
+	◦	Hem de elindeki NFT, fonksiyonel açıdan daha değerli hâle gelir.
+	•	Oyunlaştırılmış deneyim: Ana kontrat; kullanıcı profilini, istatistiklerini ve modül bazlı etkileşimlerini kaydeder. Bu veriler:
+	◦	Leaderboard,
+	◦	Rozetler,
+	◦	Skor tabanlı teşvikler için kullanılabilir.
+Sonuç olarak Jello, kullanıcıya “tek seferlik işlem dApp’i” değil, sürekli geri dönüp yeni şeyler deneyeceği bir on-chain oyun alanı sunar.
+
+4. Ekosisteme Sağladığı Fayda
+Zincirler için Jello, bir “Aktivite Motoru”dur.
+	•	İşlem çeşitliliği ve hacim artışı: Modüler yapı sayesinde, her yeni modül zincirde yeni bir işlem tipi ve yeni bir kullanım senaryosu yaratır. Bu da:
+	◦	Toplam işlem sayısını,
+	◦	Kontrat bazlı etkileşim çeşitliliğini,
+	◦	Kullanıcı başına ortalama işlem sayısını artırır.
+	•	Kullanıcıları zincire bağlayan katman: Jello, özellikle yeni kullanıcılar için:
+	◦	“Nereden başlamalıyım?” sorusuna
+	◦	“İlk on-chain deneyimimi nasıl zenginleştiririm?” ihtiyacına tek noktadan çözüm sunar.
+	•	Proje ve geliştirici ekosistemine katkı: Gelecekte Jello’nun modülleri:
+	◦	Dış projelere ait kontratlarla entegre edilebilir,
+	◦	Geliştiriciler kendi modüllerini ekleyerek kullanım kazanabilir,
+	◦	Jello, zincir için bir tür “modül pazaryeri / aksiyon kütüphanesi” rolü üstlenebilir.
+	•	Zincirlerin “aktif kullanıcı” metriklerini güçlendirme: Jello, Celo, Base ve diğer EVM zincirleri için:
+	◦	Günlük aktif adres,
+	◦	On-chain etkileşim yoğunluğu,
+	◦	DeFi & SocialFi entegrasyonları gibi metriklerde doğrudan pozitif etki yaratır.
+Ekosistem gözünden bakıldığında Jello, tekil bir ürün değil, zincirlerin üzerine oturan, işlem hacmini ve kullanıcı deneyimini artıran bir altyapı katmanıdır.
+
+5. Modüler Yapının Amacı
+Jello’nun modüler mimarisi, proje vizyonunun kalbidir.
+	•	Sınırsız ölçeklenebilirlik: Her özellik ayrı bir akıllı kontrat (modül) olarak tasarlandığı için:
+	◦	Yeni modül eklemek,
+	◦	Mevcut modülü kaldırmak veya güncellemek ana kontrata dokunmadan yapılabilir.
+	•	Risk ve hata izolasyonu: Bir modülde bug olması, tüm sistemi çökertmez. Sorunlu modül:
+	◦	Pasif edilebilir,
+	◦	Yeni versiyonla değiştirilebilir.
+	•	Geliştirici ekosistemi için açık kapı: Orta–uzun vadede:
+	◦	Dış geliştiricilerin kendi modüllerini Jello’ya entegre ettiği,
+	◦	Jello’nun bir “modül ekosistemi / plug-in sistemi”ne dönüştüğü bir yapı mümkündür.
+	•	Kullanıcı deneyiminde çeşitlilik: Aynı kategori içinde (örneğin Deploy veya GM), farklı türlerde modüller sunulabilir. Örneğin:
+	◦	GM_Normal, GM_Random, GM_Emoji, GM_Night, vb.
+	◦	Deploy_ERC20, Deploy_ERC721, Deploy_Token+NFT, vb.
+Bu mimari sayesinde Jello, zamanla kalınlaşan ve zenginleşen bir “on-chain işlem kütüphanesi” hâline gelir.
+
+6. Neden Multi-Chain Olacağı
+Stratejik hedef: Jello’yu tek bir zincirin ürünü değil, Web3 genelinde “on-chain aksiyon standardı” yapmak.
+	•	Farklı zincir, farklı kullanıcı tabanı: Celo, Base, Optimism, vb. her ağın:
+	◦	Farklı topluluğu,
+	◦	Farklı kullanım alanı,
+	◦	Farklı teşvik yapısı var. Jello, bu ağların her birine:
+	◦	Ortak bir kullanıcı deneyimi,
+	◦	Zincir içi işlem çeşitliliği,
+	◦	Ekosistemi canlandıran bir aksiyon katmanı sunar.
+	•	Ağlar arası sinerji: Aynı kullanıcı:
+	◦	Celo’da Jello kullanıp,
+	◦	Daha sonra Base üzerinde aynı mantıkla modülleri kullanabilir. Bu, hem kullanıcı deneyiminde tanıdıklık yaratır, hem de zincirler arasında doğal bir trafik akışı üretir.
+	•	Teşvik ve büyüme fırsatları: Multi-chain yapı, Jello’nun:
+	◦	Farklı ekosistem fonlarından,
+	◦	Builder programlarından,
+	◦	Zincirlerin verdiği activity / ecosystem desteklerinden yararlanmasını kolaylaştırır.
+	•	Ürün riskinin dağılması: Tek bir zincire bağımlı olmamak,
+	◦	Proje riskini,
+	◦	Teknolojik veya politik ağ risklerini dağıtarak uzun vadeli sürdürülebilirlik sağlar.
+
+7. Pasif Gelir Modelinin Temeli
+Jello’nun gelir modeli, temelde iki güçlü ve birbirini besleyen katmandan oluşur:
+
+7.1. Premium NFT Access Pass – Değerlenen Erişim
+	•	Kullanıcı, Premium NFT Access Pass mint ederek:
+	◦	Platformdaki tüm modüllere erişim sağlar.
+	◦	Her işlemde indirimli komisyon öder (0.01 CELO + gas).
+	•	Başlangıç fiyatı (50 modül): 5 CELO
+	•	NFT fiyat artış mekanizması:
+	◦	Her eklenen +50 modülde NFT mint fiyatı +2 CELO artar.
+	◦	50 modül → 5 CELO
+	◦	100 modül → 7 CELO
+	◦	150 modül → 9 CELO
+	◦	200 modül → 11 CELO vb.
+Bu model:
+	•	Erken kullanıcıyı ödüllendirir (ucuz fiyattan giriş).
+	•	Proje büyüdükçe NFT’nin ekonomik ve fonksiyonel değerini artırır.
+	•	NFT’yi basit bir “giriş bileti” değil, zamanla değerlenen erişim varlığı hâline getirir.
+
+7.2. İşlem Bazlı Komisyon – Sürekli Nakit Akışı
+	•	Premium NFT sahibi OLMAYAN kullanıcı:
+	◦	Kurucu tarafından belirlenen 10 temel özelliği kullanabilir.
+	◦	Her işlemde 0.1 CELO + gas komisyon öder.
+	•	Premium NFT Access Pass sahibi kullanıcı:
+	◦	Tüm modüllere erişebilir.
+	◦	Her işlemde sadece 0.01 CELO + gas komisyon öder.
+Bu fark şu davranışı yaratır:
+“Sık kullanacaksam, NFT almalıyım. NFT alırsam hem tüm modüller açılıyor hem de işlem maliyetim 10 kat düşüyor.”
+Ayrıca:
+	•	Komisyon oranları (0.1 CELO & 0.01 CELO) ana kontrattaki bir fonksiyonla (örn. updateFees) dinamik olarak güncellenebilir.
+	•	Böylece proje:
+	◦	Piyasa koşullarına,
+	◦	Gas ücretlerine,
+	◦	Kullanıcı sayısına,
+	◦	Modül sayısına göre ekonomik ayarlamalar yapabilir.
+
+7.3. Yatırımcı Perspektifinden Özet
+	•	NFT satışı → ön tarafta (upfront) gelir + büyüdükçe artan değer
+	•	İşlem komisyonları → her gün, her kullanıcı aksiyonunda tekrar eden gelir
+	•	Modül sayısı arttıkça:
+	◦	NFT değeri artar,
+	◦	İşlem sayısı artar,
+	◦	Komisyon geliri artar.
+Bu yapı, Jello’yu:
+	•	Hem erken aşamada fon üretebilen,
+	•	Hem de kullanıcı tabanı büyüdükçe gerçek anlamda pasif ve ölçeklenebilir nakit akışı yaratan,
+	•	Spekülasyona değil, kullanıma ve aktiviteye dayalı bir proje hâline getirir.
+
+
+SLIDE 1 — Title Slide
+
+JELLO
+The Modular On-Chain Action Platform
+Multi-Chain • Expandable • NFT-Powered • High-Engagement Layer
+
+🟦 SLIDE 2 — Problem Statement
+Web3 Etkileşimi Sınırlı
+
+Bugün kullanıcıların büyük çoğunluğu blockchain’i yalnızca birkaç temel işlemden ibaret görüyor:
+
+GM
+
+Swap
+
+NFT mint
+
+Bridge
+
+Bu algı hem zincirin potansiyelini hem de kullanıcı davranışını aşırı dar bir alanda tutuyor.
+
+Blockchain’de yüzlerce işlem tipi varken, kullanıcılar bunun %5’inden bile haberdar değil.
+
+🟦 SLIDE 3 — The Opportunity
+Zincirde Daha Fazla Etkileşim, Daha Fazla Değer
+
+Web3’te eksik olan şey: “On-chain action layer”
+
+Kullanıcı cüzdanları çok zayıf:
+
+Az kontratla etkileşim
+
+Az işlem çeşitliliği
+
+Düşük wallet reputation
+
+Zincirler aktif kullanıcı istiyor
+
+Projeler kullanım ve işlem hacmi istiyor
+
+Jello tam bu boşluğa yerleşiyor.
+
+🟦 SLIDE 4 — What is Jello? (Short Definition)
+
+Jello, kullanıcıların tek bir platformdan yüzlerce akıllı kontrat özelliğine erişmesini sağlayan modüler, genişleyebilir, multi-chain bir on-chain aksiyon platformudur.
+
+Tek arayüz
+
+Çoklu işlem tipi
+
+Modüler mimari
+
+NFT tabanlı üyelik
+
+Komisyon tabanlı sürdürülebilir ekonomi
+
+🟦 SLIDE 5 — Vision
+“On-chain davranışı standartlaştıran küresel aksiyon katmanı olmak.”
+
+Jello zamanla:
+
+50 modül → 100 → 500 → 1000+ modüle
+
+Genişleyen bir blockchain işlem kütüphanesine
+
+Zincirler için kullanıcı aktivitesi motoruna
+
+Projeler için modül ekleyebilen açık bir ekosisteme
+
+dönüşecek.
+
+🟦 SLIDE 6 — How It Works (User Flow)
+
+Kullanıcı projeye gelir
+
+Profil oluşturur
+
+10 temel özelliği 0.1 CELO komisyon + gas ile kullanır
+
+Sistemi öğrenir
+
+Premium NFT Access Pass mint eder
+
+Tüm modüllere erişir → Her işlemde sadece 0.01 CELO + gas
+
+Platform büyüdükçe yeni modüller otomatik açılır
+
+🟦 SLIDE 7 — Key User Benefits
+
+Tek tıkla çoklu akıllı kontrat işlemi
+
+Cüzdan aktivitesi güçlenir → airdrop eligibility artar
+
+Basit giriş → Derin kullanım
+
+NFT sahipleri için düşük komisyon
+
+Oyunlaştırılmış skor, istatistik ve leaderboard
+
+Çok zincirde aynı kullanıcı deneyimi
+
+Erken kullanıcı → daha ucuz NFT → daha yüksek değer
+
+🟦 SLIDE 8 — Key Ecosystem Benefits
+
+Jello zincirler için bir “Activity Engine” olarak çalışır:
+
+İşlem çeşitliliği artar
+
+Günlük aktif adres sayısı yükselir
+
+Akıllı kontrat etkileşimi çoğalır
+
+Zincirler daha canlı görünür
+
+Yeni kullanıcı onboarding'i kolaylaşır
+
+Proje/geliştirici ekosistemine modül pazar yeri açılır
+
+🟦 SLIDE 9 — Why Modular?
+
+Sonsuz ölçeklenebilirlik
+
+Bağımsız modüller → bağımsız risk
+
+Ana kontrata dokunmadan yeni özellik ekleme
+
+Her özellik kendi akıllı kontratına sahip
+
+3 ay sonra 50 modül → 100 → 150 → 500 yapılandırılabilir
+
+Geliştirici ekosistemine açık platform
+
+Modüler yapı = Jello’nun “sonsuz genişleme” motoru.
+
+🟦 SLIDE 10 — Why Multi-Chain?
+
+Farklı zincirlerde farklı kullanıcı profilleri
+
+Yeni zincir → yeni kullanıcı
+
+Ekosistem fonları / teşvikler / destekler
+
+Tek ürün → Çok ağ → Katlanan kullanım
+
+Risk dağıtımı ve sürdürülebilirlik
+
+Jello’nun standartlaşması için global varlık şart
+
+Jello = Chain-Agnostic Action Layer
+
+🟦 SLIDE 11 — Monetization Overview
+Jello’nun 2 katmanlı gelir modeli:
+A) NFT ACCESS PASS
+
+50 modül → NFT fiyatı 5 CELO
+
+Her eklenen 50 modülde +2 CELO
+
+100 modül → 7 CELO
+
+150 modül → 9 CELO
+
+200 modül → 11 CELO
+
+NFT sahibi → tüm modüller açık
+
+Her işlemde yalnızca 0.01 CELO komisyon
+
+Erken kullanıcı avantajı
+
+Zamanla değerlenen erişim varlığı
+
+B) COMMISSION MODEL
+
+NFT sahibi olmayan kullanıcı
+
+10 temel özelliği kullanır
+
+Her işlemde 0.1 CELO + gas
+
+NFT sahibi kullanıcı
+
+Tüm modüllere erişir
+
+Her işlemde 0.01 CELO + gas
+
+🟦 SLIDE 12 — Dynamic Fee System (Admin Control)
+
+Platform sahibi olarak:
+
+0.1 CELO komisyonunu
+
+0.01 CELO premium komisyonunu
+
+istediğin zaman değiştirebilirsin.
+
+Bu sistem:
+
+Piyasa koşullarına uyum
+
+Kullanıcı sayısına göre optimizasyon
+
+Gelir maksimizasyonu
+
+için kritik esneklik sağlar.
+
+🟦 SLIDE 13 — Value Creation Loop
+Jello büyüdükçe ekonomi büyür:
+
+Yeni modüller eklenir
+
+NFT fiyatı artar
+
+Platform değeri yükselir
+
+Yeni kullanıcılar gelir
+
+İşlem sayısı çoğalır
+
+Komisyon geliri artar
+
+Daha fazla modül eklenir
+
+Bu döngü → Sürekli kendini besleyen bir büyüme modeli.
+
+🟦 SLIDE 14 — Summary (Investor Snapshot)
+
+Jello,
+
+Modüler,
+
+Multi-chain,
+
+NFT tabanlı,
+
+On-chain davranışları standartlaştıran,
+
+Kullanıcı etkileşimini katlayan,
+
+Zincirlerin “aktivite motoru” olarak çalışan
+geleceğin On-Chain Action Layer’ıdır.
+
+Gelir modeli:
+
+Değerlenen NFT
+
+Sürekli komisyon akışı
+
+Ürün modeli:
+
+50 modül → 100 → 500 → 1000+
+
+Sonsuz genişlenebilirlik
+
+Çok zincirde aynı deneyim
+
+Ekosistem değeri:
+
+Kullanıcı, zincir ve geliştirici için “win–win–win” yapı.
