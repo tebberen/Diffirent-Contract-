@@ -1,0 +1,162 @@
+NFT ERİŞİM SİSTEMİ TASARIM BELGESİ (PREMIUM ACCESS PASS)
+(Tam profesyonel, eksiksiz, kontrat + ekonomi + metadata + görsel + fiyat dinamiği)
+
+🔥 0. NFT’nin Amacı ve Rolü (High-Level Definition)
+Premium NFT Access Pass, Jello platformundaki tüm modüllere erişim sağlayan tek seviye, sınırsız erişim sağlayan premium üyelik pasıdır.
+Bu NFT’nin görevi:
+	•	Kullanıcının Jello’daki tüm modülleri açmasını sağlamak
+	•	İşlem ücretini düşürmek (0.1 CELO → 0.01 CELO)
+	•	Platform büyüdükçe değeri artan sınırlı erişim varlığı sunmak
+	•	Jello’nun gelir modelinin temelini oluşturmak
+	•	Erken kullanıcıları ödüllendirmek
+NFT, Jello’nun premium kapısıdır.
+
+🟦 1. NFT TÜRÜ (Access Tier)
+Premium NFT Access Pass için şimdilik tek bir tier belirlenmiştir:
+Tier Unlimited
+	•	Sınırsız modül erişimi
+	•	Gelecekte eklenen modüllere otomatik erişim
+	•	Tüm kategorilerde tam açık UX
+	•	Her işlemde indirimli komisyon: 0.01 CELO
+	•	Premium kullanıcı rozetine sahip olur (profilde görünür)
+	•	Kullanıcı profil skorunda ekstra bonus alır (opsiyonel)
+Gelecekte istenirse ek tier’lar oluşturulabilir:
+	•	“Developer Pass”
+	•	“Lifetime Supporter”
+	•	“Tester / Founders Tier” vb.
+Ama şu an için Unlimited tek seviye olarak tasarlanmıştır.
+
+🟧 2. NFT FİYATLANDIRMA MODELİ (Dynamic Pricing Engine)
+Bu sistem, Jello ekonomisinin en önemli yapı taşıdır.
+2.1. Başlangıç Fiyatı
+	•	50 modül → 5 CELO
+2.2. Dinamik Fiyatlandırma Mekanizması
+Her eklenen +50 modül için NFT fiyatı +2 CELO artar.
+Toplam Modül
+NFT Fiyatı
+50
+5 CELO
+100
+7 CELO
+150
+9 CELO
+200
+11 CELO
+250
+13 CELO
+300
+15 CELO
+Bu mekanizmanın faydası:
+	•	Erken kullanıcı → ucuz fiyattan alır
+	•	Sınırsız erişim NFT’si zamanla daha değerli olur
+	•	Platform büyüdükçe NFT’nin fonksiyonel değeri artar
+	•	Kademeli fiyat artışı “enflasyon yaratmaz”
+2.3. Admin Fiyat Güncelleme Yetkisi
+Ana kontratta:
+
+function updateNFTPrice(uint256 newPrice) external onlyOwner
+Bu sayede:
+	•	Ağ koşullarına
+	•	CELO fiyatına
+	•	Kullanıcı talebine
+	•	Ekosistem büyüklüğüne
+göre fiyat manuel olarak da güncellenebilir.
+
+🟩 3. NFT GÖRSELLERİ (IPFS Storage Standard)
+NFT görselleri Jello’nun marka kimliğiyle uyumlu olmalıdır.
+3.1. Temel Seçenekler
+	•	Tek bir unified görsel: “Jello Premium Pass” Güvenilir, sade ve premium algısı yüksek.
+	•	Tier bazında varyantlar (opsiyonel):
+	◦	Bronze
+	◦	Silver
+	◦	Gold
+	◦	Unlimited (Black/Platinum)
+Senin modelinde şimdilik tek görsel yeterlidir:
+👉 JELLO – Premium Unlimited Access Pass (IPFS Asset)
+3.2. Depolama
+Görseller şuraya yüklenir:
+	•	IPFS (Pinata / NFT.storage / Arweave gateway)
+	•	Metadata içinde URL → ipfs://CIDHASH/...
+Görsel Kalitesi:
+	•	1500x1500 px
+	•	PNG veya SVG
+	•	300 DPI
+	•	Aynı zamanda küçük boyutlu versiyon (600px)
+
+🟫 4. NFT METADATA STANDARDI (ERC721 JSON Metadata)
+Her NFT metadata dosyası ERC721 JSON Metadata Standardına uygun olmalıdır.
+
+4.1. Metadata JSON Şablonu
+Codex için tam şablon:
+
+{
+  "name": "Jello Premium Access Pass",
+  "description": "Unlimited access to all current and future Jello modules. Premium users get 10x cheaper transaction fees and full-feature access across all chains.",
+  "image": "ipfs://CID/filename.png",
+  "attributes": [
+    {
+      "trait_type": "Access Level",
+      "value": "Unlimited"
+    },
+    {
+      "trait_type": "Commission Discount",
+      "value": "0.01 CELO per action"
+    },
+    {
+      "trait_type": "Chain Support",
+      "value": "Multi-chain"
+    },
+    {
+      "trait_type": "Version",
+      "value": "1"
+    }
+  ]
+}
+
+4.2. Attributes Açıklaması
+Access Level
+“Unlimited” → Premium erişim tanımı
+Commission Discount
+0.1 CELO → 0.01 CELO indirimi tanımlar
+Chain Support
+NFT’nin tüm entegre chainlerde geçerli olduğunu gösterir
+Version
+NFT’nin metadata versiyonudur
+
+🟦 5. NFT KONTRAT FONKSİYONLARI (ERC721 + Custom Logic)
+Premium NFT kontratına eklenecek zorunlu fonksiyonlar:
+
+5.1. mintNFT()
+Kullanıcı NFT satın alır. Ücret MainHub tarafından tahsil edilir.
+5.2. getNFTPrice()
+Dinamik fiyatlandırmayı döner.
+5.3. updateNFTPrice()
+Sadece OWNER çağırabilir.
+5.4. hasNFT(address user)
+MainHub tarafından erişim kontrolü için çağrılır.
+5.5. tokenURI(tokenId)
+IPFS metadata linkini döner.
+
+🟩 6. ANA KONTRAT İLE NFT BAĞLANTISI
+MainHub içinde şu kontroller olmalıdır:
+✔ Kullanıcının NFT’si var mı?
+
+bool premium = nftContract.hasNFT(user);
+✔ İşlem ücreti belirleme
+
+if (premium) fee = premiumFee;
+else fee = basicFee;
+✔ Kullanıcı NFT mint ettiğinde:
+MainHub:
+	•	NFTAccessGranted event’i atar
+	•	Kullanıcının skoruna bonus ekleyebilir (opsiyonel)
+
+🟧 7. NFT ECONOMY — TAM ÖZET (VC Düzeyi)
+NFT Access Pass:
+	•	Sınırsız modül erişimi
+	•	Tüm chainlerde geçerli
+	•	10x ucuz işlem ücreti
+	•	Platform büyüdükçe fiyatı artan varlık
+	•	Kullanıcıya sadakat sağlayan premium seviye
+	•	Jello’nun uzun vadeli gelir motoru
+Ekonomi modeli → Erken kullanıcıyı ödüllendiren, platform büyüdükçe değerlenen, enflasyonsuz, ölçeklenebilir bir sistem.
