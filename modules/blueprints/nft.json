@@ -1,0 +1,40 @@
+{
+  "name": "NFTAccessModule",
+  "version": "1.0.0",
+  "category": "access",
+  "moduleType": "token-gate",
+  "premium": true,
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "passAddress": { "type": "string", "format": "address" },
+      "minBalance": { "type": "string", "pattern": "^\\d+$" },
+      "expiration": { "type": "number" }
+    },
+    "required": ["passAddress"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "access": { "type": "boolean" },
+      "reason": { "type": "string" }
+    }
+  },
+  "eventSchema": [
+    {
+      "name": "AccessEvaluated",
+      "parameters": [
+        { "name": "user", "type": "address", "indexed": true },
+        { "name": "granted", "type": "bool", "indexed": false },
+        { "name": "passAddress", "type": "address", "indexed": false }
+      ]
+    }
+  ],
+  "abiAssumptions": [
+    "function checkAccess(address user) external view returns (bool)",
+    "function setPass(address pass) external"
+  ],
+  "exampleUsage": "Premium içerik NFTAccessModule aracılığıyla token sahiplerine açılır.",
+  "integrationNotes": "Premium NFT politikası docs/nft-policy.md ile uyumlu olmalı; Self XYZ abonelik katmanlarıyla eşleştirilir."
+}

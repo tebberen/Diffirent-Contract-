@@ -1,0 +1,43 @@
+{
+  "name": "GMModule",
+  "version": "1.0.0",
+  "category": "social",
+  "moduleType": "interaction",
+  "premium": false,
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "maxLength": 280,
+        "description": "Optional GM message override"
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "gmid": { "type": "string" },
+      "sender": { "type": "string", "format": "address" },
+      "timestamp": { "type": "number" }
+    }
+  },
+  "eventSchema": [
+    {
+      "name": "GMPosted",
+      "parameters": [
+        { "name": "sender", "type": "address", "indexed": true },
+        { "name": "message", "type": "string", "indexed": false },
+        { "name": "metadata", "type": "bytes32", "indexed": false }
+      ]
+    }
+  ],
+  "abiAssumptions": [
+    "function postGM(string calldata message) external",
+    "function getDailyCount(address user) external view returns (uint256)"
+  ],
+  "exampleUsage": "Hub.registerModule(GMModule) ardından kullanıcılar postGM('GM wagmi!') çağırır.",
+  "integrationNotes": "Celo AI duygu analizi webhook'u GM mesajlarından tetiklenir; Talent Protocol profilleri ile günlük limit paylaşılır."
+}
