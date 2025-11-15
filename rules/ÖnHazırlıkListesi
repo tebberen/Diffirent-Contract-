@@ -1,0 +1,268 @@
+🟨 1. PROJE TANIMI – VİZYON & AMAÇ BELGESİ
+Hazırlanacak:
+	•	Projenin kısa açıklaması (2–3 cümle)
+	•	Uzun açıklama (1–2 paragraf)
+	•	Kullanıcıya sağladığı fayda
+	•	Ekosisteme sağladığı fayda
+	•	Modüler yapının amacı
+	•	Neden multi-chain olacağı
+	•	Pasif gelir modelinin temeli
+Bu kısım yatırımcı sunumuna da giriyor.
+
+🟧 2. ANA KATEGORİ SİSTEMİ (EN KRİTİK ADIM)
+✔ 10 ana kategori belirleyeceksin:
+Örnek (yerine kendi ekleyeceksin):
+	•	GM Category
+	•	Deploy Category
+	•	Mint Category
+	•	NFT Tools Category
+	•	Social Category
+	•	Developer Tools
+	•	Donation
+	•	Governance
+	•	Utility
+	•	Multichain Operations
+✔ Her kategori için 5 modül (toplam 50 modül) yazacaksın:
+Örnek:
+	•	GM_Normal
+	•	GM_Random
+	•	GM_Emoji
+	•	GM_Story
+	•	GM_HugeStyle
+Hazırlanacak belge:
+
+Kategori Adı 1:
+ - Modül 1
+ - Modül 2
+ - Modül 3
+ - Modül 4
+ - Modül 5
+
+Kategori Adı 2:
+ - ...
+(Toplam 50 modül)
+Bu liste Codex'e zorunlu şekilde verilmesi gereken iskelet.
+
+🟦 3. ANA KONTRAT (MAIN HUB) TASARIM BELGESİ
+Ana kontratın içermesi gereken tüm özelliklerin eksiksiz listesi ↓
+✔ 3.1. Modül Sistemi
+	•	Modül kayıt sistemi (registerModule)
+	•	Modül aktivasyon (activateModule)
+	•	Modül pasif etme (deactivateModule)
+	•	Modül adres tablosu
+	•	Modül türü (type)
+	•	Modül kategorisi (category)
+	•	Modül erişim seviyesi (FREE / PREMIUM)
+	•	Modüllerin versiyon bilgisi
+✔ 3.2. Kullanıcı Profil Sistemi
+Her kullanıcı için:
+	•	username (string)
+	•	profile creation timestamp
+	•	bağlı sosyal hesaplar:
+	◦	X/Twitter
+	◦	GitHub
+	◦	Talent Protocol
+	◦	Self Identity
+	•	Kullanıcının kullandığı modüllerin listesi
+	•	Kullanıcının toplam işlem sayısı
+	•	Kullanıcının modül bazlı skorları
+✔ 3.3. İstatistik Sistemi
+Kullanıcı bazlı istatistik:
+	•	totalActions
+	•	moduleActions[moduleId]
+	•	dailyActions
+	•	weeklyActions
+Global istatistik:
+	•	totalGlobalActions
+	•	totalActionsPerModule[moduleId]
+	•	uniqueUserCount
+Leaderboard için gerekli tüm metrikler:
+	•	scoreFormula
+	•	globalRankingData
+✔ 3.4. Yetki Sistemi (Roles)
+	•	OWNER
+	•	ADMIN
+	•	MODERATOR
+	•	registerModule → sadece OWNER
+	•	updateFee → sadece OWNER
+	•	setNFTContract → ADMIN
+✔ 3.5. Erişim Kontrol Sistemi
+Kullanıcı modülü çalıştırmadan önce:
+	•	NFT kontrolü
+	•	ücretsiz modül mü?
+	•	premium modül mü?
+	•	komisyon ödenecek mi?
+✔ 3.6. Event Sistemi
+	•	ProfileCreated
+	•	ModuleRegistered
+	•	ModuleExecuted
+	•	NFTAccessGranted
+	•	GlobalStatsUpdated
+✔ 3.7. Yükseltilebilirlik (opsiyon)
+	•	Proxy ile upgrade veya
+	•	MigrationManager.sol
+
+🟩 4. MODÜL TASARIM BELGESİ (HER MODÜL İÇİN ZORUNLU ŞABLON)
+Her modülün içinde:
+✔ Zorunlu fonksiyonlar:
+	•	execute() → ana işlem
+	•	getModuleInfo()
+	•	supportsFeature()
+	•	version
+✔ Ana kontrat bağlantısı:
+	•	constructor(mainHubAddress)
+	•	mainHub.recordUsage(msg.sender, moduleID)
+✔ Zorunlu kontroller:
+	•	Access: mainHub.hasAccess()
+	•	Fee: mainHub.chargeFee()
+✔ Eventler:
+	•	ModuleAction(address user, uint256 timestamp, string details)
+✔ Depolanacak bilgiler:
+	•	modül adı
+	•	modül açıklaması
+	•	modül türü
+	•	modül kategorisi
+	•	bu modülün kaç kez kullanıldığı (opsiyonel)
+
+🟫 5. NFT ERİŞİM SİSTEMİ ÖN HAZIRLIĞI
+✔ 5.1. NFT Türleri
+Belirlemen gerekiyor:
+	•	Tier 1 → 50 modül erişim
+	•	Tier 2 → 100 modül erişim
+	•	Tier Unlimited → sınırsız
+✔ 5.2. NFT fiyatlandırma modeli
+	•	Başlangıç fiyatı
+	•	Fiyatı değiştirme yetkisi
+	•	Dinamik fiyat sistemi
+✔ 5.3. NFT görselleri
+	•	1 görsel
+	•	veya tier başına farklı görseller
+	•	Görseller IPFS’de barındırılacak
+✔ 5.4. NFT metadata
+	•	name
+	•	description
+	•	image (IPFS)
+	•	accessLevel
+	•	chain info (opsiyonel)
+
+🟥 6. KOMİSYON SİSTEMİ
+✔ Hazırlanacak:
+	•	Komisyon miktarı (ör: 0.01 CELO)
+	•	NFT sahipleri komisyon öder mi?
+	•	Ücretsiz modüller listesi
+	•	Ücretli modüller listesi
+	•	Komisyon ana kontratta mı yoksa modüllerde mi tutulacak?
+
+🟪 7. ENTEGRASYONLAR İÇİN ÖN HAZIRLIK
+✔ 3 resmi doküman linkini hazırlayacaksın:
+	•	Celo AI Partner Docs
+	•	Talent Protocol Docs
+	•	Self XYZ Docs
+✔ Her entegrasyon için toplaman gereken bilgiler:
+	•	API URL
+	•	API Key (sen gireceksin)
+	•	authentication yöntemi
+	•	callback / webhook ihtiyacı
+	•	hangi modülde kullanılacağı
+	•	test anahtarları
+
+🟦 8. FRONTEND ÖN PLANI (UI/UX)
+✔ Sayfalar:
+	•	Home
+	•	Profile
+	•	Modules Page
+	•	Module Detail Page
+	•	Leaderboard
+	•	Stats Dashboard
+	•	NFT Mint Page
+	•	WalletConnect Page
+	•	Settings
+✔ constants.js içine:
+	•	tüm modül adresleri
+	•	modül türleri
+	•	erişim seviyesi (FREE/PREMIUM)
+	•	ana kontrat adresi
+	•	NFT kontrat adresi
+✔ contractService.js planı:
+	•	getUserProfile
+	•	createProfile
+	•	executeModule
+	•	getGlobalStats
+	•	getModuleStats
+	•	checkNFTAccess
+
+🟧 9. DATA & LEADERBOARD KATMANI
+✔ Toplanacak veriler:
+	•	günlük işlem sayıları
+	•	modül bazlı kullanım
+	•	kullanıcı bazlı toplam tx
+	•	multi-chain tx sayıları (opsiyonel)
+✔ Puanlama formülü:
+Kullanıcı puanı = (benzersiz modül sayısı * 5) + (toplam tx * 1) + (premium modül kullanımı * 10)
+✔ Görünecek leaderboard listeleri:
+	•	All-time leaderboard
+	•	Weekly leaderboard
+	•	Monthly leaderboard
+	•	Modül bazlı leaderboard
+
+🟨 10. DEPLOY SIRASI & HAZIRLIK
+✔ Deploy edilecekler:
+	1	NFT contract
+	2	MainHub.sol
+	3	50 modül
+	4	Modülleri MainHub’a bağlama
+	5	constants.js’e adresleri ekleme
+	6	Frontend bağlama
+✔ Multi-chain için hazırlanacak:
+	•	Celo deploy script
+	•	Base deploy script
+	•	“tek komutla 50 modül deploy” sistemi
+
+🟦 11. CODEX PROMPT İÇİN HAZIRLIK DOSYASI
+✔ Şu belgeleri tek dosya halinde hazırlamalısın:
+	•	10 kategori listesi
+	•	50 modül listesi
+	•	Ana kontrat özellik listesi
+	•	Modül standartları
+	•	NFT erişim sistemi açıklaması
+	•	Komisyon sistemi
+	•	Entegrasyonlar
+	•	Frontend planı
+	•	Deploy sırası
+	•	Leaderboard planı
+Codex’e vereceğimiz dev talimat seti bunlardan oluşacak.
+
+🟩 12. TEST PLANI (ÖNCE HAZIRLANACAK)
+✔ Ana kontrat testi:
+	•	profil oluşturma
+	•	modül ekleme
+	•	erişim kontrolü
+	•	NFT kontrolü
+✔ Modül testi:
+	•	execute fonksiyonu
+	•	eventler
+	•	recordUsage doğru çalışıyor mu?
+✔ Frontend testi:
+	•	wallet connect
+	•	modül çağırma
+	•	stats okuma
+
+🟥 13. DOKÜMANTASYON VE NOTLAR
+Hazırlanacak:
+	•	Modül açıklama dosyası
+	•	Kategori açıklama dosyası
+	•	Kullanıcı akış diyagramı
+	•	Ana kontrat akış diyagramı
+	•	NFT erişim diyagramı
+	•	Sistem mimarisi şeması
+
+🟩 BİTTİ. Bu liste %100 eksiksizdir.
+Bu listeyi bitirdiğinde:
+	•	Ana kontrat
+	•	50 modül
+	•	NFT sistemi
+	•	Leaderboard
+	•	İstatistik sistemi
+	•	Frontend
+	•	Multi-chain deploy sistemi
+hepsi tek seferde Codex’e yazdırılabilir hale gelir.
