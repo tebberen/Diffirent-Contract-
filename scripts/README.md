@@ -8,6 +8,6 @@ Dağıtım, doğrulama ve bakım senaryoları burada tutulur.
 - Çıktıda dağıtılan adresi yazdırır.
 
 ## deploy.sh
-- `.env` dosyanızdaki değişkenleri yükleyip `forge script` komutunu hazırlar.
-- Explorer API anahtarı sağlanmışsa doğrulama bayraklarını otomatik ekler.
-- Kullandığı komutu terminalde göstererek manuel müdahaleye gerek bırakmaz.
+- Varsayılan olarak proje kökündeki `.env` dosyasını yükler ancak `ENV_FILE` değişkeni ile farklı ortam dosyaları seçilebilir.
+- `PRIVATE_KEY`, `RPC_URL` ve opsiyonel `EXPLORER_API_KEY` değerlerini doğrular, `NETWORK` değişkenine göre `alfajores` veya `basesepolia` için zincir parametresi ekler.
+- Explorer API anahtarı sağlanmışsa doğrulama bayraklarını otomatik ekler ve kullanılan `forge script` komutunu terminalde gösterir.

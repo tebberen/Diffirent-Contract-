@@ -24,10 +24,12 @@ Sonrasında aşağıdaki değerleri ayarlayın:
 - `PRIVATE_KEY`: 0x öneki bulunan testnet özel anahtarınız (harcama izni olduğundan emin olun).
 - `RPC_URL`: Alfajores veya Base Sepolia RPC adresi.
 - `EXPLORER_API_KEY`: CeloScan veya BaseScan API anahtarı (doğrulama için opsiyonel).
+- `NETWORK`: `alfajores` veya `basesepolia`. `deploy.sh` varsayılan olarak `alfajores` kullanır.
 
 ## Deploy Scriptini Çalıştırma
 1. Ortam değişkenlerini shell ortamınıza yükleyin (`export $(cat .env | xargs)` gibi) ya da `direnv` kullanın.
-2. Aşağıdaki komutu çalıştırarak MainHub'ı dağıtın:
+2. `NETWORK` değişkeninizin hedef zinciri yansıttığından emin olun (`alfajores` veya `basesepolia`).
+3. Aşağıdaki komutu çalıştırarak MainHub'ı dağıtın:
 ```
 forge script scripts/DeployMainHub.s.sol:DeployMainHub \
   --rpc-url $RPC_URL \
@@ -41,11 +43,15 @@ forge script scripts/DeployMainHub.s.sol:DeployMainHub \
 Komut tamamlandığında konsol `MainHub deployed at <adres>` çıktısını üretir.
 
 ## Hızlı Deploy Scripti
-`scripts/deploy.sh` dosyası yukarıdaki komutu otomatikleştirir:
+`scripts/deploy.sh` dosyası yukarıdaki komutu otomatikleştirir ve `.env` içeriğini okuyarak eksik değişkenler için koruma sağlar:
 ```
 ./scripts/deploy.sh
 ```
-Script `.env` dosyanızı okuyup gerekli değişkenlerin tanımlı olduğunu doğrular, Explorer API anahtarı varsa doğrulamayı otomatik ekler ve kullanılan `forge script` komutunu çıktılar.
+Opsiyonel olarak tek seferlik farklı bir `.env` dosyası göstermek veya zincir seçmek için:
+```
+ENV_FILE=.env.staging NETWORK=basesepolia ./scripts/deploy.sh
+```
+Script, `.env` dosyanızı okuyup gerekli değişkenlerin tanımlı olduğunu doğrular, Explorer API anahtarı varsa doğrulamayı otomatik ekler ve kullanılan `forge script` komutunu çıktılar.
 
 ## Explorer Doğrulaması (Opsiyonel)
 Eğer ayrı bir doğrulama yapmak isterseniz:
