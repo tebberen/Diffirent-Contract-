@@ -1,3 +1,3 @@
 export function initApp() {
-  console.log('Jello Modular Hub frontend hazır.');
+  console.log('CeloModuleX frontend hazır.');
 }

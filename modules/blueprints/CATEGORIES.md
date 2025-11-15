@@ -1,4 +1,4 @@
-# Jello Module Categories & Types
+# CeloModuleX Module Categories & Types
 
 ## Canonical Categories
 - **social** — GM, link paylaşımı, topluluk etkileşimi.

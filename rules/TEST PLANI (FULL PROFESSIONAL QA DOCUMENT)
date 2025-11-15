@@ -2,7 +2,8 @@ TEST PLANI (FULL PROFESSIONAL QA DOCUMENT)
 (Ana Kontrat + Modüller + Frontend testi)
 
 🟩 1. ANA KONTRAT TESTLERİ (MainHub QA Checklist)
-Ana kontrat Jello’nun beyni olduğu için en kritik testler buradadır. Testler Remix, Hardhat, Foundry veya Thirdweb CLI test runner ile yapılabilir.
+Ana kontrat CeloModuleX’nun beyni olduğu için en kritik testler buradadır. Testler Remix, Hardhat, Foundry veya Thirdweb CLI test runner ile yapılabilir.
+Testler Remix, Hardhat, Foundry veya Thirdweb CLI test runner ile yapılabilir.
 
 ✔ 1.1. Profil Oluşturma Testleri
 Test 1 — Yeni kullanıcı profil oluşturma

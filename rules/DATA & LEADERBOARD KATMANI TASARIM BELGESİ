@@ -31,10 +31,10 @@ mapping(uint256 => uint256) public moduleActions;
 Bu değer →
 	•	Module Detail Page
 	•	Stats Dashboard
-	•	Modül bazlı leaderboard gibi yerlerde kullanılır.
+	•	Modül bazlı leaderboard 	•	chainTxCount["CeloModuleX"] = 3122
 
-✔ 1.3. Kullanıcı Bazlı Kullanım (user total actions)
-Toplam işlem:
+CeloModuleX’nun skor algoritması kullanıcı davranışlarını doğru ölçmek için tasarlandı.
+CeloModuleX’da 4 farklı leaderboard vardır.
 
 userProfile[user].totalActions++;
 Modül bazlı işlem:

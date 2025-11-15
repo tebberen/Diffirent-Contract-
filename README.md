@@ -1,6 +1,6 @@
-# Jello Modular Hub
+# CeloModuleX
 
-Bu depo, Jello modüler sözleşme mimarisini ve ilişkili araçları barındırır.
+Bu depo, CeloModuleX modüler sözleşme mimarisini ve ilişkili araçları barındırır.
 
 ## Gereksinimler
 - [Foundry](https://book.getfoundry.sh/getting-started/installation)

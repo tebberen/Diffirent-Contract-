@@ -1,4 +1,4 @@
-# Jello Kuralları Analizi (TR)
+# CeloModuleX Kuralları Analizi (TR)
 
 ## Eksik veya Belirsiz Noktalar
 1. **Modül metadata boşluğu** – `Module` yapısı yalnızca adres, kategori, tip, premium ve versiyon saklıyor; isim/açıklama gibi metadata hâlâ frontend sabitlerine kalıyor ve zincir dışı kaynakla eşleşme riski var.

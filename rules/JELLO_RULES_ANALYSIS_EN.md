@@ -1,4 +1,4 @@
-Project Rules – Jello Modular Hub Analysis (EN)
+Project Rules – CeloModuleX Analysis (EN)
 1. Current Gaps & Ambiguities
 
 Module metadata gap

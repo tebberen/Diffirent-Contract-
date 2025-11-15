@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-/// @title Jello MainHub
+/// @title CeloModuleX MainHub
 /// @notice Modüller için kayıt, yetkilendirme ve ücret yönlendirme iskeleti.
 contract MainHub {
     address public owner;

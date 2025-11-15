@@ -2,7 +2,8 @@ FRONTEND ÖN PLANI (UI/UX + TECH ARCHITECTURE)
 
 
 🟩 1. SAYFA MİMARİSİ (UI/UX FLOW)
-Jello’nun kullanıcı yolculuğu: Home → WalletConnect → Profile → Modules → Module Detail → Execute → Stats → Leaderboard → NFT Mint → Settings
+CeloModuleX’nun kullanıcı yolculuğu: Home → WalletConnect → Profile → Modules → Module Detail → Execute → Stats → Leaderboard → NFT Mint → Settings
+	•	CeloModuleX logosu + Hero area
 Aşağıda her sayfanın profesyonel tanımı bulunuyor:
 
 🏠 1. Home Page
@@ -84,7 +85,7 @@ Amaç: Platform istatistiklerini göstermek.
 	•	Günlük / haftalık kullanım artışı
 	•	Toplam kullanıcı sayısı
 	•	Global actions
-Frontend backend entegrasyonu:
+	•	Chain switcher (CeloModuleX, Celo, Base vs.)
 	•	contractService.getGlobalStats()
 	•	contractService.getModuleStats()
 

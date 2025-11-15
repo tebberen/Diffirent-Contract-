@@ -1,6 +1,6 @@
 MODÜL TASARIM BELGESİ
 (Her modül için zorunlu standart — “Module Contract Template Specification”)
-Bu belge Jello’nun modüler mimarisine entegre edilecek her akıllı kontratın uyması gereken zorunlu şablonu tanımlar.
+Bu belge CeloModuleX’nun modüler mimarisine entegre edilecek her akıllı kontratın uyması gereken zorunlu şablonu tanımlar.
 Bu standart sayesinde:
 	•	50 → 500 → 1000 modüle büyürken hiçbir bozulma olmaz
 	•	MainHub tüm modülleri tek protokol üzerinden yönetebilir
@@ -172,7 +172,7 @@ contract ExampleModule {
         require(mainHub.hasAccess(msg.sender, moduleID), "No access");
         mainHub.chargeFee(msg.sender, moduleID);
 
-        // Module logic
+Bu, CeloModuleX’nun en kritik yapı taşlarından biridir.
         usageCount++;
 
         // Emit event
