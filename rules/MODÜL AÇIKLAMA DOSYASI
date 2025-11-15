@@ -1,0 +1,168 @@
+MODÜL AÇIKLAMA DOSYASI (modules.md)
+Bu dosya 50 modülün her birini detaylı biçimde açıklayacak referans belgedir.
+1.1. Her modül için şablon
+Her modülün açıklaması şu formatta olacak:
+
+## Module #1 — GM Standard
+- **Kategori:** Social Tools
+- **Tür:** gm
+- **Premium:** Hayır
+- **Versiyon:** 1
+- **Açıklama:** Kullanıcı zincir üzerinde GM kaydı oluşturur.
+- **Input:** string gmMessage
+- **Output:** on-chain GM kaydı
+- **Events:** ModuleAction(user, timestamp, "GM")
+- **Fee:** 0.1 CELO (premium kullanıcı 0.01 CELO)
+Bu şablon 50 modül için tek tek doldurulacak.
+1.2. Dosyanın amacı
+	•	Frontend hangi modülde ne yapacağını buradan bilir
+	•	Modül geliştiricileri için rehberdir
+	•	Kullanıcı eğitiminde referans olarak kullanılabilir
+
+🟧 2. KATEGORİ AÇIKLAMA DOSYASI (categories.md)
+Bu dosya 10 kategoriyi tanımlayan resmî referanstır.
+2.1. Her kategori için format
+
+# Category 1 — Social Modules
+Bu kategori sosyal zincir içi etkileşim modüllerini içerir.
+Modüller:
+- GM Standard
+- GN Standard
+- Follow Module
+- Like Module
+- Onchain Comment Module
+2.2. Kategorilerin amacı
+	•	Modülleri düzenli tutmak
+	•	Kullanıcı deneyimini iyileştirmek
+	•	Genişleyebilir modül yapısında standardizasyon sağlamak
+
+🟦 3. KULLANICI AKIŞ DİYAGRAMI (user-flow.png / user-flow.md)
+Bu doküman kullanıcıların sistemdeki davranışlarını gösterir.
+3.1. Akış (diyagram formatında)
+
+User Enters App
+     ↓
+Connect Wallet
+     ↓
+Profile Exists?
+ (No) → Create Profile
+     ↓
+See Modules Page
+     ↓
+Choose Module
+     ↓
+Free Module?
+   ↓ Yes                      ↓ No
+Execute (0.1 CELO)       NFT Check →
+                               ↓
+                     NFT Exists?
+                          ↓No → Go to NFT Mint Page
+                          ↓Yes
+                     Execute (0.01 CELO)
+     ↓
+Stats Updates
+     ↓
+Leaderboard Updated
+     ↓
+User Profile Refresh
+3.2. Kapsam
+	•	Tüm kullanıcı deneyimi tek akışta gösterilir
+	•	UX tasarımcıları için temel rehber
+	•	Jello’nun kullanıcı mantığını tümüne özetler
+
+🟩 4. ANA KONTRAT AKIŞ DİYAGRAMI (mainhub-flow.md)
+Bu dosya MainHub.sol’un nasıl çalıştığını blok diyagramla anlatır.
+4.1. MainHub işlem akışı
+
+executeModule(moduleID)
+     ↓
+Check Profile Exists
+     ↓
+Check Module Active
+     ↓
+Check Access (Premium/Free)
+     ↓
+Calculate Fee
+     ↓
+chargeFee()
+     ↓
+Call Module: module.execute()
+     ↓
+recordUsage()
+     ↓
+updateGlobalStats()
+     ↓
+updateUserStats()
+     ↓
+emit ModuleExecuted
+4.2. Bu dosyanın amacı
+	•	Backend + frontend geliştiricilerine rehber
+	•	Audit ekipleri için referans
+	•	Projenin işlem mantığı tek bakışta anlaşılır
+
+🟪 5. NFT ERİŞİM DİYAGRAMI (nft-access-flow.md)
+NFT Access Pass sisteminin nasıl çalıştığını gösteren özel akış.
+5.1. Akış
+
+User Wants to Execute Premium Module
+     ↓
+MainHub: hasNFT(user)?
+     ↓
+No → Redirect to NFT Mint Page
+     ↓
+Mint NFT (price = dynamic)
+     ↓
+NFT Minted
+     ↓
+Premium Access Granted (event)
+     ↓
+Execute Module (fee = 0.01 CELO)
+5.2. Açıklama
+Bu diyagram:
+	•	Premium mantığını açıklar
+	•	Kullanıcı eğitimi için
+	•	Codex + frontend için rehber niteliğindedir
+
+🟫 6. SİSTEM MİMARİSİ ŞEMASI (architecture-diagram.png / architecture.md)
+Bu, Jello’nun tam mimarisini gösteren en kritik şemadır.
+6.1. Mimarinin bileşenleri
+	•	NFT Contract
+	•	MainHub.sol
+	•	50+ Module Contracts
+	•	WalletConnect
+	•	Frontend (React)
+	•	constants.js
+	•	contractService.js
+	•	API Entegrasyonları (Talent, Self, Celo AI)
+	•	Multi-chain deploy
+	•	Leaderboard sistemi
+	•	Stats Engine
+6.2. Şema
+
+                        ┌─────────────────────────┐
+                        │      NFT Contract       │
+                        └───────────┬─────────────┘
+                                    │
+                      ┌─────────────▼─────────────┐
+                      │       MainHub.sol         │
+                      │  (access, stats, fees)    │
+                      └─────────────┬─────────────┘
+              ┌─────────────────────┼─────────────────────┐
+              │                     │                     │
+     ┌────────▼───────┐   ┌────────▼───────┐   ┌─────────▼────────┐
+     │ Module Group 1 │   │ Module Group 2 │   │ Module Group ...  │
+     └────────▲───────┘   └────────▲───────┘   └─────────▲────────┘
+              │                     │                     │
+              │     registerModule  │   registerModule    │
+              │                     │                     │
+         ┌────┴──────────────────────────────────────────────┐
+         │                 constants.js                       │
+         └────┬───────────────────────────────────────────────┘
+              │
+       ┌──────▼─────────┐
+       │ contractService │
+       └──────┬─────────┘
+              │
+      ┌───────▼────────────────────────────────────┐
+      │                 Frontend (UI)               │
+      └────────────────────────────────────────────┘
