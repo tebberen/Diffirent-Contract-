@@ -1,0 +1,12 @@
+🟪 7. ENTEGRASYONLAR İÇİN ÖN HAZIRLIK
+✔ 3 resmi doküman linkini hazırlayacaksın:
+	•	Celo AI Partner Docs
+	•	Talent Protocol Docs
+	•	Self XYZ Docs
+✔ Her entegrasyon için toplaman gereken bilgiler:
+	•	API URL
+	•	API Key (sen gireceksin)
+	•	authentication yöntemi
+	•	callback / webhook ihtiyacı
+	•	hangi modülde kullanılacağı
+	•	test anahtarları
