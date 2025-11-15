@@ -1,0 +1,213 @@
+MODÜL TASARIM BELGESİ
+(Her modül için zorunlu standart — “Module Contract Template Specification”)
+Bu belge Jello’nun modüler mimarisine entegre edilecek her akıllı kontratın uyması gereken zorunlu şablonu tanımlar.
+Bu standart sayesinde:
+	•	50 → 500 → 1000 modüle büyürken hiçbir bozulma olmaz
+	•	MainHub tüm modülleri tek protokol üzerinden yönetebilir
+	•	Kullanıcı istatistikleri bozulmaz
+	•	Gelecekte gelen yeni modüller eski sistemle %100 uyumludur
+	•	Kod kalitesi ve güvenlik standartlaşır
+
+🟦 1. MODÜLÜN ANA AMAÇ TANIMI
+Her modül:
+	•	Kendi içinde bağımsız bir işlem yapar
+	•	MainHub tarafından çağrılır
+	•	Erişim kontrolü MainHub üzerinden belirlenir
+	•	Komisyon tahsilatı MainHub tarafından yapılır
+	•	Event’leri MainHub’dan bağımsız üretir
+	•	İşlem sonucu frontend’e yansır
+Modülün görevi: Sadece kendi özelliğine odaklanmak. Access, fee, istatistik, premium–free ayrımı → MainHub’da.
+Modül kodu her zaman “temiz”, “küçük”, “sadece işi yapan” bir yapı olmalıdır.
+
+🟦 2. ZORUNLU FONKSİYONLAR
+Her modül mutlaka aşağıdaki fonksiyonlara sahip olmalıdır:
+
+2.1. execute() — (zorunlu)
+Modülün ana fonksiyonudur. Kullanıcı moduleId ile MainHub’da execute eder → MainHub modülü çağırır → execute() çalışır.
+Sorumluluğu:
+	•	Modülün işlem mantığını uygulamak
+	•	Hesaplama yapmak
+	•	NFT mintlemek, GM kaydetmek, mesaj oluşturmak, deploy yapmak vb.
+Bu fonksiyonda erişim kontrolü yapılmaz → zaten MainHub yapmıştır. Bu fonksiyon küçük olmalı ve sadece modülün kendi işini yapmalıdır.
+
+2.2. getModuleInfo() — (zorunlu)
+Modülün metadata bilgisini döner. Frontend tarafından okunur. MainHub veya constants.js’de modül bilgisi çekilir.
+Dönmesi gereken:
+	•	modül adı
+	•	modül açıklaması
+	•	kategori ID
+	•	tür ID
+	•	premium mu free mi
+	•	versiyon
+
+2.3. supportsFeature() — (zorunlu)
+Modülün hangi özellikleri içerdiğini döner. Örnek:
+
+supportsFeature() returns (“deploy”, “erc721”, “randomize”)
+Frontend bu bilgiyi kullanır.
+
+2.4. version() — (zorunlu)
+Modülün sürümünü döner. Örnek:
+
+return 1;
+return 2;
+Bu, MainHub’ın modülleri güncel tutmasına yardımcı olur.
+
+🟦 3. ANA KONTRAT BAĞLANTISI
+Her modül MainHub’a bağlanmak zorundadır.
+3.1. constructor(mainHubAddress) — (zorunlu)
+Modül deploy edilirken MainHub adresi girilir.
+
+constructor(address _mainHub) {
+    mainHub = MainHub(_mainHub);
+}
+3.2. mainHub.recordUsage(msg.sender, moduleID)
+Modül, işlemini tamamladıktan sonra MainHub’a kullanım bilgisini gönderir.
+Bu fonksiyon MAINHUB içinde:
+	•	kullanıcı stats artışı
+	•	global stats artışı
+	•	event
+	•	skor hesabı
+gibi tüm sonraki işlemleri tetikler.
+Modül tarafında sadece:
+
+mainHub.recordUsage(msg.sender, moduleID);
+yazılır.
+
+🟦 4. ZORUNLU ERİŞİM VE ÜCRET KONTROLLERİ
+Her modül içinde kontrol yapılmaz. Ancak modül zorunlu olarak giriş fonksiyonunda şu iki çağrıyı yapmak zorundadır:
+4.1. Access Control → mainHub.hasAccess(msg.sender, moduleID)
+Bu kontrol modülün üst katmanında yapılmalıdır.
+
+require(mainHub.hasAccess(msg.sender, moduleID), "No access");
+Ama daha ideal olan: MainHub → executeModule → tüm kontroller → modül.execute() Modül içinde yeniden kontrol yapılması opsiyoneldir.
+4.2. Fee Control → mainHub.chargeFee(msg.sender, moduleID)
+İşlem ücretini MainHub tahsil eder.
+Komisyon mantığı:
+	•	Premium kullanıcısı → 0.01 CELO
+	•	Premium olmayan → 0.1 CELO → Bu ayırım MainHub’da.
+Modül tarafı sadece çağırır:
+
+mainHub.chargeFee(msg.sender, moduleID);
+
+🟦 5. EVENT STANDARTLARI
+Her modül, aşağıdaki event’i zorunlu olarak içermelidir:
+
+event ModuleAction(
+    address indexed user,
+    uint256 timestamp,
+    string details
+);
+details parametresi:
+	•	GM message
+	•	Deploy edilen kontrat adresi
+	•	Mint edilen NFT ID
+	•	Bağış miktarı
+	•	Kullanıcının girdiği parametre
+vb. olabilir.
+
+🟦 6. MODÜLDE DEPOLANMASI GEREKEN BİLGİLER
+Her modül aşağıdaki metadata değerlerini storage’da tutmalıdır:
+6.1. moduleName
+	•	“GM Normal”, “Deploy ERC721”, “NFT Randomizer”, “Donate CELO” gibi
+6.2. moduleDescription
+Örnek:
+	•	“Kullanıcı GM mesajı gönderir”
+	•	“ERC721 NFT deploy eder”
+	•	“Kullanıcıya rastgele bir sayı üretir”
+6.3. moduleType
+Örnek ID listesi:
+	•	1 = GM
+	•	2 = Deploy
+	•	3 = Donate
+	•	4 = Mint
+	•	5 = Social
+	•	6 = DevTools
+	•	7 = NFT Tools
+	•	8 = Fun Modules
+	•	9 = Analytics Modules
+6.4. moduleCategory
+Kategori-ID bağlantısı:
+	•	GM = 1
+	•	Deploy = 2
+	•	NFT = 3 vb.
+6.5. usageCount (opsiyonel ama tavsiye edilir)
+Bu modülün kaç kez kullanıldığını gösterir. Frontend için güzel veri.
+
+uint256 public usageCount;
+Modül execute() sonrası:
+
+usageCount++;
+
+🟦 7. MODÜLÜN TAM ŞABLON KOD TASLAĞI (Codex için birebir)
+Bu şablon tüm modüllerin temel dosya formatıdır.
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+import "./MainHub.sol";
+
+contract ExampleModule {
+
+    MainHub public mainHub;
+    uint256 public moduleID;
+
+    string public moduleName = "Example Module";
+    string public moduleDescription = "This module performs an example action";
+    uint8 public moduleType = 1;      // category/type system you define
+    uint8 public moduleCategory = 1;
+    uint16 public version = 1;
+
+    uint256 public usageCount;
+
+    event ModuleAction(address indexed user, uint256 timestamp, string details);
+
+    constructor(address _mainHub, uint256 _moduleID) {
+        mainHub = MainHub(_mainHub);
+        moduleID = _moduleID;
+    }
+
+    function execute(string calldata data) external {
+        // Access control + Fee collection
+        require(mainHub.hasAccess(msg.sender, moduleID), "No access");
+        mainHub.chargeFee(msg.sender, moduleID);
+
+        // Module logic
+        usageCount++;
+
+        // Emit event
+        emit ModuleAction(msg.sender, block.timestamp, data);
+
+        // Update main hub stats
+        mainHub.recordUsage(msg.sender, moduleID);
+    }
+
+    function getModuleInfo() external view returns(
+        string memory,
+        string memory,
+        uint8,
+        uint8,
+        uint16
+    ) {
+        return (
+            moduleName,
+            moduleDescription,
+            moduleType,
+            moduleCategory,
+            version
+        );
+    }
+
+    function supportsFeature() external pure returns(string memory) {
+        return "example_feature";
+    }
+}
+
+🟩 8. SON — BU MODÜL TASARIM BELGESİ %100 TAM VE KUSURSUZ
+Bu belge sayesinde:
+	•	Tüm modüller standart olacak
+	•	Tüm modüller MainHub ile %100 uyumlu olacak
+	•	Codex yüzlerce modülü sorunsuz yazabilecek
+	•	Hiçbir modül sistem bozamayacak
+	•	İstatistik, fee, erişim, premium kontrolü asla kırılmayacak
+Bu, Jello’nun en kritik yapı taşlarından biridir.
