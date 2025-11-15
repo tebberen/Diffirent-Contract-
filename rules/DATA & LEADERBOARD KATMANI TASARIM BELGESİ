@@ -1,0 +1,179 @@
+DATA & LEADERBOARD KATMANI TASARIM BELGESİ
+
+
+🟧 0. Veri Katmanının Amacı
+Bu katmanın görevi:
+	•	Kullanıcı bazlı tüm işlem verilerini toplamak
+	•	Modül bazlı kullanım istatistiklerini tutmak
+	•	Global sistem metriklerini sürekli güncellemek
+	•	Bu verilerden puan formülü hesaplamak
+	•	4 çeşit leaderboard tablosunu oluşturmak
+	•	Multi-chain kullanım verilerini opsiyonel olarak toplamak
+Bu katman MainHub kontratının ayrılmaz bir parçasıdır.
+
+🟩 1. TOPLANACAK VERİLER (ON-CHAIN STORAGE)
+Aşağıdaki veriler doğrudan MainHub.sol içinde tutulacaktır.
+
+✔ 1.1. Günlük İşlem Sayıları (daily actions)
+Bunun için mapping:
+
+mapping(uint256 => uint256) public dailyActions;
+// key = günün timestamp'inin YYYYMMDD formatı
+Örnek:
+	•	20250112 → 823 işlem
+	•	20250113 → 912 işlem
+Günlük aktivite grafikleri için gereklidir.
+
+✔ 1.2. Modül Bazlı Kullanım (actions per module)
+
+mapping(uint256 => uint256) public moduleActions;
+// moduleActions[moduleID] += 1;
+Bu değer →
+	•	Module Detail Page
+	•	Stats Dashboard
+	•	Modül bazlı leaderboard gibi yerlerde kullanılır.
+
+✔ 1.3. Kullanıcı Bazlı Kullanım (user total actions)
+Toplam işlem:
+
+userProfile[user].totalActions++;
+Modül bazlı işlem:
+
+userProfile[user].moduleActions[moduleID]++;
+Benzersiz modül sayısı:
+
+if (userProfile[user].moduleActions[moduleID] == 1) {
+    userProfile[user].uniqueModulesUsed++;
+}
+Premium modül kullanımı:
+
+userProfile[user].premiumModuleCount++;
+Bu veriler → puan hesaplaması için zorunludur.
+
+✔ 1.4. Multi-chain TX Verileri (opsiyonel)
+Eğer multi-chain desteği eklenirse her chain için:
+
+mapping(string => uint256) public chainTxCount;
+Örnek:
+	•	chainTxCount["Celo"] = 1231
+	•	chainTxCount["Base"] = 522
+	•	chainTxCount["Jello"] = 3122
+Bu veri:
+	•	Zincir kıyaslama
+	•	Multi-chain dashboard
+	•	Builder rank için kullanılır.
+
+🟧 2. PUANLAMA SİSTEMİ (SCORE FORMULA)
+Jello’nun skor algoritması kullanıcı davranışlarını doğru ölçmek için tasarlandı.
+Final Skor Formülü:
+
+Kullanıcı puanı = 
+(benzersiz modül sayısı * 5) 
++ (toplam tx * 1) 
++ (premium modül kullanımı * 10)
+
+✔ 2.1. Benzersiz Modül Sayısı * 5
+	•	Kullanıcıyı yeni modüller denemeye teşvik eder
+	•	“Keşfetme davranışını” ödüllendirir
+	•	En güçlü puan çarpanlarından biridir
+
+✔ 2.2. Toplam İşlem * 1
+	•	Sürekliliği ödüllendirir
+	•	Çok küçük fakat istikrarlı bir puan
+
+✔ 2.3. Premium Modül Kullanımı * 10
+	•	Premium NFT sahiplerini ödüllendirir
+	•	Ücretli modül kullanımını teşvik eder
+	•	Elit kullanıcı davranışını yansıtır
+
+✔ 2.4. Skor 3 yerde güncellenir:
+	1	Modül execute edilir
+	2	MainHub → recordUsage
+	3	score hesaplanır → kaydedilir
+
+function updateScore(address user) internal {
+    UserProfile storage u = userProfile[user];
+    u.score = 
+        u.uniqueModulesUsed * 5 +
+        u.totalActions * 1 +
+        u.premiumModuleCount * 10;
+}
+
+🟪 3. LEADERBOARD ÇEŞİTLERİ (TOP 4 LIST)
+Jello’da 4 farklı leaderboard vardır.
+Bu leaderboard’lar hem zincir üstü verilerle hem de frontend cache ile çalışır.
+
+🥇 3.1. All-Time Leaderboard
+Tüm zamanların en yüksek skoruna göre sıralama.
+Kullanılan değer:
+
+score
+Bu listenin amacı:
+	•	En aktif kullanıcıları göstermek
+	•	Uzun vadeli sadakati ödüllendirmek
+
+🥈 3.2. Weekly Leaderboard
+Son 7 günün verisine göre sıralama.
+Kullanılan değer:
+
+weeklyActions
+Bu veri on-chain tutulabilir ama daha çok frontend’de:
+	•	Event logları taranarak
+	•	Block timestamp ile filtrelenerek hesaplanabilir.
+
+🥉 3.3. Monthly Leaderboard
+Aynı mantık → son 30 gün.
+Kullanılan değer:
+
+monthlyActions
+
+🎖 3.4. Modül Bazlı Leaderboard
+Her modül için ayrı bir liste:
+Örnek:
+	•	En çok GM kullananlar
+	•	En çok deploy yapanlar
+	•	En çok NFT mintleyenler
+	•	En çok sosyal modül kullananlar
+Veri:
+
+userProfile[user].moduleActions[moduleID]
+
+🟦 4. LEADERBOARD ÜRETİM MİMARİSİ
+✔ Ana Kontrat verileri toplar
+→ günlük, modül bazlı, kullanıcı bazlı, premium bazlı
+✔ Frontend düzenli olarak şunları çeker:
+	•	getUserStats
+	•	getGlobalStats
+	•	moduleActions
+	•	all user score values
+✔ Bir sıralama algoritması çalışır:
+JS tarafında:
+
+users.sort((a, b) => b.score - a.score)
+✔ Frontend cache’inde saklanır
+→ hızlı yükleme → düşük gas maliyeti → multi-chain uyumlu
+✔ İstenirse backend + database modeli eklenir
+MongoDB / Supabase / Firebase Özellikle haftalık & aylık listeler için tavsiye edilir.
+
+🟧 5. ON-CHAIN EVENTLER (LİDERBOARD İÇİN ZORUNLU)
+MainHub aşağıdaki eventleri üretmelidir:
+
+event ModuleExecuted(address indexed user, uint256 moduleId, uint256 timestamp);
+event GlobalStatsUpdated(uint256 totalActions);
+event UserStatsUpdated(address indexed user, uint256 newScore);
+Bu event’ler sayesinde:
+	•	TheGraph
+	•	Dune
+	•	Custom backend
+ile tüm veriler çekilebilir.
+
+🟫 6. FRONTEND LİDERBOARD API
+contractService.js içinde:
+✔ getLeaderboard()
+All-time skorları döner.
+✔ getWeeklyLeaderboard()
+Event timestamp filtrelemesi ile hesaplanır.
+✔ getMonthlyLeaderboard()
+Aynı mantık.
+✔ getModuleLeaderboard(moduleId)
+moduleActions’a göre sıralanır.
