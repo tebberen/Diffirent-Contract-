@@ -1,5 +1,8 @@
 # CeloModuleX Module Categories & Types
 
+> Not: Bu dosya, önceki Jello markasıyla yaşanan çakışmaları çözmek ve
+> CeloModuleX isimlendirmesini kesinleştirmek için güncellenmiştir.
+
 ## Canonical Categories
 - **social** — GM, link paylaşımı, topluluk etkileşimi.
 - **support** — bağış, tipping ve sponsorluk modülleri.

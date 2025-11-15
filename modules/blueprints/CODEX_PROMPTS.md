@@ -2,7 +2,7 @@
 
 ## 1. Blueprint → Smart Contract
 ```
-You are Codex, expert Solidity engineer. Given the following CeloModuleX blueprint JSON:
+You are Codex, expert Solidity engineer. Given the following CeloModuleX blueprint JSON (rebranded from the legacy Jello docs):
 {{blueprint}}
 - Implement a Solidity module inheriting BaseModule.
 - Respect `moduleType`, `eventSchema`, and `abiAssumptions`.

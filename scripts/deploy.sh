@@ -6,7 +6,7 @@ cd "$ROOT_DIR"
 
 ENV_FILE=${ENV_FILE:-.env}
 if [[ ! -f "$ENV_FILE" ]]; then
-  echo "[deploy] $ENV_FILE dosyası bulunamadı. Lütfen ortam değişkenlerini doldurun." >&2
+  echo "[deploy] $ENV_FILE dosyası bulunamadı. Lütfen CeloModuleX ortam değişkenlerini doldurun." >&2
   exit 1
 fi
 

@@ -1,6 +1,8 @@
 # Scripts
 
-Dağıtım, doğrulama ve bakım senaryoları burada tutulur.
+Dağıtım, doğrulama ve bakım senaryoları burada tutulur. Bu sürüm,
+GitHub üzerindeki isim çatışmalarını çözerek tüm talimatları CeloModuleX
+markasıyla hizalar.
 
 ## DeployMainHub.s.sol
 - Foundry `forge script` komutu ile MainHub.sol sözleşmesini Celo Alfajores veya Base Sepolia'ya dağıtır.

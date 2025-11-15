@@ -3,6 +3,10 @@ pragma solidity ^0.8.20;
 
 /// @title CeloModuleX MainHub
 /// @notice Modüller için kayıt, yetkilendirme ve ücret yönlendirme iskeleti.
+/// @dev Bu sade sürüm, daha sonra eklenecek RBAC, ücret ve istatistik
+///      mekanizmaları için temel görevleri tutar. Çatışmaları giderirken
+///      yeni isimlendirmeyi garanti altına almak adına dosya başlığı da
+///      güncellenmiştir.
 contract MainHub {
     address public owner;
 
