@@ -40,6 +40,13 @@ forge script scripts/DeployMainHub.s.sol:DeployMainHub \
 
 Komut tamamlandığında konsol `MainHub deployed at <adres>` çıktısını üretir.
 
+## Hızlı Deploy Scripti
+`scripts/deploy.sh` dosyası yukarıdaki komutu otomatikleştirir:
+```
+./scripts/deploy.sh
+```
+Script `.env` dosyanızı okuyup gerekli değişkenlerin tanımlı olduğunu doğrular, Explorer API anahtarı varsa doğrulamayı otomatik ekler ve kullanılan `forge script` komutunu çıktılar.
+
 ## Explorer Doğrulaması (Opsiyonel)
 Eğer ayrı bir doğrulama yapmak isterseniz:
 ```
