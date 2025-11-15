@@ -1,0 +1,146 @@
+KOMİSYON SİSTEMİ TASARIM BELGESİ
+
+
+🔥 0. Komisyon Sisteminin Amacı
+Komisyon sistemi Jello’nun gelir yapısını oluşturan iki ana mekanizmadan biridir:
+	1	NFT sahibi olmayan kullanıcı → 0.1 CELO
+	2	Premium NFT Access Pass sahibi → 0.01 CELO
+Amaçlar:
+	•	Platform için pasif gelir oluşturmak
+	•	NFT alan kullanıcıyı ödüllendirmek
+	•	Modül kullanımını sürdürülebilir kılmak
+	•	Multi-chain operasyonlarda tek standardı korumak
+	•	Ekosistem büyüdükçe komisyon havuzunu artırmak
+
+🟧 1. Komisyon Miktarları
+1.1. NFT’siz Kullanıcı Komisyonu
+	•	0.1 CELO (varsayılan ücret) Kullanıcı her modül execute ettiğinde bu ücret tahsil edilir.
+1.2. Premium NFT Access Pass Sahibi Komisyonu
+	•	0.01 CELO 10× daha ucuz işlem ücreti.
+Bu sayede kullanıcı:
+	•	NFT almaya teşvik edilir
+	•	Uzun vadede sisteme bağlı kalır
+	•	Ekonomik avantaj elde eder
+1.3. Ekonomik Parametreler Ana Kontratta Tutulacak
+Ana kontrat içinde:
+
+uint256 public basicFee = 0.1 ether (CELO);
+uint256 public premiumFee = 0.01 ether (CELO);
+
+🟦 2. NFT Sahipleri Komisyon Öder mi?
+Evet. Premium NFT sahipleri komisyon ödemeye devam eder, fakat indirimli olarak.
+Neden?
+	•	Platform gelirinin sürekli olmasını sağlar
+	•	Sadece NFT mint geliriyle sınırlı kalmaz
+	•	Premium kullanıcı davranışını ödüllendirir
+	•	Sistem sürdürülebilir olur
+NFT sahipleri → 0.01 CELO NFT sahibi olmayanlar → 0.1 CELO
+
+🟩 3. Ücretsiz Modüller Listesi (Free Tier Modules)
+Jello’nun ilk kullanıcı akışında 10 adet ücretsiz modül bulunur.
+Bu modüller:
+	•	Kullanıcının sistemi keşfetmesini sağlar
+	•	NFT satın alması için mantıksal bir yol oluşturur
+	•	Kullanıcıyı cüzdanını bağlamaya teşvik eder
+	•	Platformu test etme imkanı verir
+Örnek ücretsiz modüller:
+	1	GM Standard
+	2	GN (Goodnight)
+	3	Like / Favorite Module
+	4	Simple Hash Generator
+	5	Basic NFT Viewer
+	6	Basic CELO Price Fetcher
+	7	Simple Profile Checker
+	8	Wallet Health Scanner
+	9	Color NFT Generator (free version)
+	10	Onchain Timestamp Proof
+Bu modüller her zaman ücretsiz olacak ancak:
+	•	Kullanıcı yine komisyon öder
+	•	NFT alırsa komisyon düşer
+Yani ücretsiz = modül ücreti yok, ama işlem komisyonu devam eder.
+
+🟦 4. Ücretli Modüller Listesi (Premium / Pay-per-Action Modules)
+Başlangıç listesi (50 modülün çoğu):
+	•	Deploy ERC721
+	•	Deploy ERC1155
+	•	Deploy Minimal Proxy
+	•	Deploy ERC20
+	•	Deploy VoteModule
+	•	Deploy CustomTemplate
+	•	Advanced NFT Mint
+	•	Randomizer VRF Module
+	•	CELO → cUSD Swap Tool (SDK tabanlı)
+	•	Multi-Send Token Distributer
+	•	ZK-Proof Verifier
+	•	Trait-Based NFT Mint
+	•	NFT Metadata Injector
+	•	Social Reputation Writer
+	•	GitHub Commit Proof
+	•	X/Twitter Signature Attester
+	•	Talent Protocol Identity Writer
+	•	SELF ID Connector
+	•	Onchain Score Upgrader
+	•	Reward Claim Module
+	•	Oracle Data Fetch Module
+	•	CELO Cross-Chain Notifier
+	•	Multi-Contract Interaction Module
+	•	NFT Folder Mint (bulk mint)
+Bu modüller için:
+	•	NFT yoksa → 0.1 CELO
+	•	NFT varsa → 0.01 CELO
+Ayrıca modül premium flag’i MainHub’da tutulur:
+
+premium: bool
+
+🟥 5. Komisyon Nerede Tutulacak? (En Kritik Tasarım Kararı)
+⭐ 5.1. Komisyon Ana Kontratta Tutulacak (Doğru Sistem)
+Komisyonlar modüllerde değil, ana kontratta tutulur.
+Bu kararın gerekçeleri:
+✔ Tüm komisyonların tek bir yerde toplanması
+Her modülün içinde fee logic olması:
+	•	Kod tekrarına sebep olur
+	•	Güvenlik risklerini artırır
+	•	Gas maliyetini yükseltir
+	•	Denetim maliyetini artırır
+Bu yüzden doğru yapı:
+Komisyon → Ana Kontrat → Tek Havuz
+✔ Ana kontrat ekonomi kontrol merkezi olur
+	•	withdrawFees()
+	•	updateFee()
+	•	premiumFee/bas icFee güncelleme → Hepsi tek yerde.
+✔ Modüllerin kodu sade kalır
+Modüller tek satırlık çağrı yapar:
+
+mainHub.chargeFee(msg.sender, moduleId);
+✔ Ekonomi manipülasyonunu engeller
+Hiçbir modül kendi komisyonunu değiştiremez.
+✔ Multi-chain deploy üzerinde tam kontrol
+Her chain’de komisyon merkezi olur.
+
+🟦 6. Ana Kontratın Komisyon Fonksiyonları
+Ana kontrat içerecek:
+chargeFee(address user, uint256 moduleId)
+	•	NFT kontrolü
+	•	Komisyon tutarı seçimi
+	•	CELO tahsilatı
+	•	Fee havuzuna ekleme
+withdrawFees(address to, uint256 amount)
+	•	Owner/Admin çekebilir
+updateFee(uint256 _basic, uint256 _premium)
+	•	Komisyonu istediğin zaman değiştirebilirsin
+getFeesCollected()
+	•	Şeffaflık için toplam biriken ücret
+
+🟩 7. Komisyonun İşlem Akışı
+User → executeModule(moduleID):
+	1	Kullanıcı modülü çalıştırır
+	2	MainHub erişimi kontrol eder
+	3	Kullanıcı NFT’ye sahip mi kontrol edilir
+	4	Komisyon miktarı belirlenir
+	5	chargeFee() çalışır
+	6	CELO ana kontrat havuzuna gider
+	7	Modülün execute() fonksiyonu çağrılır
+	8	Kullanıcı işlem yapmış olur
+
+🟧 8. Yatırımcı Sunumu İçin Kısa Özet
+“Jello her işlemden otomatik komisyon alır. NFT sahibi olmayan kullanıcı 0.1 CELO, Premium NFT Access Pass sahipleri 0.01 CELO öder. Tüm komisyonlar ana kontratta toplanır ve sistem büyüdükçe düzenli pasif gelir oluşturur.”
