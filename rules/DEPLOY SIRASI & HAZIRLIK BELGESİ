@@ -1,0 +1,153 @@
+DEPLOY SIRASI & HAZIRLIK BELGESİ 
+Aşağıdaki plan hem tek chain, hem de multi-chain için geçerlidir.
+Bu sıra zorunludur. Hatalı deploy → tüm sistemi kırar. Bu belge → “Jello’nun zaman çizelgesi ve altyapısı”dır.
+
+🟧 1. ZORUNLU DEPLOY SIRASI (KESİNLİKLE BOZULMAMALI)
+✔ 1. NFT CONTRACT (Önce)
+Bu neden ilk?
+	•	Premium kontrolü MainHub içinde yapılacak
+	•	MainHub’ın nftContract adresini constructor’da vermek YA DA sonradan set etmek için hazır olmalı
+	•	Modüller premium/free ayrımını MainHub’dan alır
+	•	MainHub önce NFT’yi bilmek zorunda
+O yüzden ilk deploy edilecek kontrat NFT’dir.
+→ Deploy: NFTAccessPass.sol → Çıktı: NFT_CONTRACT_ADDRESS
+
+✔ 2. MAİNHUB.SOL (Sistemin Beyni)
+NFT adresi hazır olduktan sonra MainHub deploy edilir.
+MainHub deploy sırasında girilecek parametreler:
+	•	NFT kontrat adresi
+	•	basicFee (0.1 CELO)
+	•	premiumFee (0.01 CELO)
+Deploy sonrası:
+MAIN_HUB_ADDRESS bir daha değişmeyecek.
+Bu yüzdendir ki MainHub deploy edildiğinde hiçbir eksik kalmamalıdır.
+
+✔ 3. 50 MODÜL (TOPLU DEPLOY)
+Her modülün constructor’ı:
+
+constructor(address mainHub, uint256 moduleId)
+Bu yüzden MainHub’ın adresi deploy öncesi kesinleşmiş olmalı.
+Modüller tek tek deploy edilecek. Toplam 50 modül → 50 ayrı kontrat adresi.
+Modülleri deploy ederken:
+	•	Modül ID
+	•	Modül adı
+	•	Modül açıklaması
+	•	Kategori
+	•	Premium / Free
+	•	Versiyon
+şablona göre eklenir.
+→ Bu aşamada Jello artık modüler ve genişletilebilir hale gelir.
+
+✔ 4. MODÜLLERİ MAİNHUB’A BAĞLAMA (registerModule)
+Her deploy edilen modül MainHub’a şu şekilde bağlanır:
+
+registerModule(
+   moduleAddress,
+   categoryID,
+   moduleType,
+   isPremium,
+   version
+);
+Bu adım yapılmazsa:
+❌ frontend modülü göstermez ❌ executeModule çalışmaz ❌ istatistik kaydı yapılmaz ❌ kullanıcı modülü göremez
+Bu nedenle 50 modülün hepsi registerModule ile eklenmek zorunda.
+
+✔ 5. constants.js’e 50 modül adresinin eklenmesi
+deploy → 50 adres register → 50 entry
+Sonra:
+
+MODULES = {
+  1: { address, name, category, type, access },
+  2: { ... },
+  ...
+  50: { ... }
+}
+Bu olmadan frontend:
+❌ modülleri listeleyemez ❌ Module Detail Page çalışmaz ❌ executeModule tetiklenmez
+
+✔ 6. FRONTEND BAĞLAMA
+Frontend sabitleri (constants.js) hazır olduktan sonra:
+	•	contractService.js → modül adreslerini & MainHub’ı okur
+	•	UI → modül kartlarını oluşturur
+	•	Execute Module → doğru kontrata bağlanır
+	•	Profile & Stats → MainHub’dan çekilir
+Bu aşamada:
+👉 Jello frontendi artık tamamen çalışır. 👉 Tüm modüller tek tıkla execute edilebilir. 👉 NFT ve Premium mantığı devreye girer.
+
+🟦 2. MULTI-CHAIN DEPLOY HAZIRLIĞI
+Jello hem Jello chain’de, hem Celo’da, hem Base’de çalışabilir.
+Her chain için ayrı deploy script’i gereklidir.
+
+✔ 2.1. CELO Deploy Script (deploy_celo.js)
+Script içeriği:
+	•	NFT deploy
+	•	MainHub deploy
+	•	50 modül deploy
+	•	registerModule
+	•	constants.js güncelle
+	•	log dosyası oluştur
+Komut:
+
+node scripts/deploy_celo.js
+
+✔ 2.2. BASE Deploy Script (deploy_base.js)
+Aynı mantık.
+Komut:
+
+node scripts/deploy_base.js
+
+✔ 2.3. TEK KOMUTLA 50 MODÜL DEPLOY (Batch Deployment Engine)
+Bu sistem çok önemli.
+Sana şöyle bir yapı örneği veriyorum:
+
+const modules = [
+  { name: "GM Standard", file: "GMStandard.sol", category: 1, type: 1, premium: false, version: 1 },
+  { name: "Deploy721", file: "Deploy721.sol", category: 2, type: 4, premium: true, version: 1 },
+  ...
+  { #50. modül }
+];
+
+for (let i = 0; i < modules.length; i++) {
+    const module = modules[i];
+    const deployed = await deploy(module.file, MAIN_HUB_ADDRESS, i+1);
+    await mainHub.registerModule(deployed.address, module.category, module.type, module.premium, module.version);
+}
+Komut:
+
+node scripts/deploy_modules_batch.js
+Bu sistem sayesinde:
+	•	50 modül → tek komut
+	•	100 modül → tek komut
+	•	500 modül → tek komut
+👉 Jello sonsuza kadar genişleyebilir hale gelir. 👉 Modül eklemek = 1 satır eklemek.
+
+🟫 3. DEPLOY SONRASI KONTROL LİSTESİ
+Bu listeyi tek tek işaretleyerek ilerleyeceksin:
+
+✔ NFT Deploy edildi
+✔ NFT price = 5 CELO doğrulandı
+✔ MainHub deploy edildi
+✔ basicFee = 0.1 CELO kontrol edildi
+✔ premiumFee = 0.01 CELO kontrol edildi
+✔ NFT contract address → MainHub’a kaydedildi
+✔ 50 modül deploy edildi
+✔ 50 modül register edildi
+✔ Modül ID’leri doğru sırada
+✔ constants.js güncellendi
+✔ contractService.js adresleri doğru
+✔ WalletConnect çalışıyor
+✔ NFT Mint Page çalışıyor
+✔ Execute Module çalıştı
+✔ Profile istatistikleri artıyor
+✔ Leaderboard verileri değişiyor
+✔ Multi-chain deploy script test edildi
+Bu liste Jello’nun resmî QA listesi olarak kullanılmalı.
+
+🟧 4. DEPLOY SIRASININ NEDEN BU KADAR KRİTİK OLDUĞU
+Çünkü:
+	•	MainHub → NFT adresini bilmeden premium mantığı çalışmaz
+	•	Modüller → MainHub adresi olmadan deploy edilemez
+	•	constants.js → modül adreslerini bilmezse UI bozulur
+	•	executeModule → modüller register olmadıkça çağrılamaz
+	•	Frontend → MainHub adresini bilmeden hiçbir şey yapamaz
+Bu yüzden sıra ASLA bozulamaz.
