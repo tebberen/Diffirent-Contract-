@@ -1,0 +1,238 @@
+FRONTEND ÖN PLANI (UI/UX + TECH ARCHITECTURE)
+
+
+🟩 1. SAYFA MİMARİSİ (UI/UX FLOW)
+Jello’nun kullanıcı yolculuğu: Home → WalletConnect → Profile → Modules → Module Detail → Execute → Stats → Leaderboard → NFT Mint → Settings
+Aşağıda her sayfanın profesyonel tanımı bulunuyor:
+
+🏠 1. Home Page
+Amaç: Kullanıcıyı projeye tanıtmak ve WalletConnect'e yönlendirmek.
+İçerik:
+	•	Jello logosu + Hero area
+	•	“Connect Wallet” butonu
+	•	Toplam modül sayısı (dynamic)
+	•	Toplam kullanıcı sayısı
+	•	Son kullanılan modüller
+	•	“Start Exploring Modules” CTA butonu
+UI Notları:
+	•	Celo sarı teması (#FBCC5C)
+	•	Minimal + temiz arayüz
+	•	Mobil uyumlu
+
+👤 2. Profile Page
+Amaç: Kullanıcı profil bilgileri + sosyal bağlantılar + kullanım istatistikleri.
+İçerik:
+	•	Username
+	•	Cüzdan adresi
+	•	Sosyal medya bağlantıları (X, GitHub, Talent, Self ID)
+	•	Kullanıcının kullandığı modül sayısı
+	•	Premium NFT durumu (Locked / Unlocked badge)
+	•	“Edit Profile” formu
+	•	Kullanıcı skor bilgisi (leaderboard score)
+
+📦 3. Modules Page (Tüm Modüller Sayfası)
+Amaç: Tüm kategorileri ve modülleri listelemek.
+İçerik:
+	•	KATEGORİLER (10 kategori halinde grid menu)
+	•	Her kategori açıldığında:
+	◦	Modül kartları
+	◦	Modül ikonları
+	◦	Free / Premium etiketleri
+	◦	Kısa açıklama
+Modül Kart Yapısı:
+	•	İkon
+	•	Modül adı
+	•	Kategori
+	•	Premium / Free badge
+	•	“View Details” butonu
+
+🧩 4. Module Detail Page
+Amaç: Bir modülün tüm bilgilerini göstermek.
+İçerik:
+	•	Modül adı
+	•	Modül açıklaması
+	•	Kategori
+	•	Modül versiyonu
+	•	Modül ID
+	•	Kullanım sayısı (usageCount)
+	•	Premium mu free mi
+	•	“Execute Module” butonu
+	•	Bilgi banner’ı:
+	◦	Premium değilse “0.1 CELO fee”
+	◦	Premium ise “0.01 CELO fee”
+
+🏆 5. Leaderboard Page
+Amaç: Küresel sıralamayı göstermek.
+İçerik:
+	•	Global ranking table
+	•	Kullanıcı adı
+	•	Cüzdan
+	•	Total actions
+	•	Unique modules used
+	•	Score
+	•	Sıra numarası
+Filtreler:
+	•	Günlük
+	•	Haftalık
+	•	Tüm zamanlar
+
+📊 6. Stats Dashboard
+Amaç: Platform istatistiklerini göstermek.
+İçerik:
+	•	Toplam modül kullanımı
+	•	Modül bazlı kullanım grafiği
+	•	Günlük / haftalık kullanım artışı
+	•	Toplam kullanıcı sayısı
+	•	Global actions
+Frontend backend entegrasyonu:
+	•	contractService.getGlobalStats()
+	•	contractService.getModuleStats()
+
+💳 7. NFT Mint Page
+Amaç: Kullanıcıya Premium NFT Access Pass satın alma ekranı sunmak.
+İçerik:
+	•	NFT görseli
+	•	NFT açıklaması
+	•	Mevcut fiyat (dinamik)
+	•	Sonraki fiyat (kaç modül sonra artacağı)
+	•	“Mint Now” butonu
+	•	Premium avantaj listesi:
+	◦	Tüm modüller açık
+	◦	10x ucuz komisyon (0.01 CELO)
+	◦	Gelecekte eklenen tüm modüllere ücretsiz erişim
+
+🔗 8. WalletConnect Page
+Amaç: Cüzdan bağlantısı.
+İçerik:
+	•	WalletConnect v2
+	•	Cüzdan seçimi
+	•	Bağlantı durumu
+	•	Hata mesajları (bağlantı yapılamadı, ağ yanlış vs.)
+
+⚙️ 9. Settings Page
+Amaç: Kullanıcı ayarları ve uygulama yapılandırması.
+İçerik:
+	•	Dil seçimi
+	•	Tema (dark/light)
+	•	Sosyal hesap bağlantı ayarları
+	•	Logout
+	•	Chain switcher (Jello, Celo, Base vs.)
+
+🟦 2. constants.js PLANI
+Bu dosyada zincir üstü adresler + modül bilgileri + erişim seviyeleri bulunacak.
+
+📌 constants.js İçeriği
+2.1. Ana Kontrat Adresi
+
+export const MAIN_HUB_ADDRESS = "0x123...";
+2.2. NFT Kontrat Adresi
+
+export const NFT_CONTRACT_ADDRESS = "0xabc...";
+2.3. Modül Adresleri
+
+export const MODULES = {
+  1: {
+    address: "0x111...",
+    name: "GM Standard",
+    type: "gm",
+    category: "Social",
+    access: "FREE",
+  },
+  2: {
+    address: "0x222...",
+    name: "Deploy ERC721",
+    type: "deploy",
+    category: "Developer",
+    access: "PREMIUM",
+  },
+  ...
+};
+2.4. Kategoriler
+
+export const CATEGORIES = {
+  1: "GM Tools",
+  2: "Deploy Tools",
+  3: "NFT Tools",
+  4: "Analytics",
+  5: "Social Identity",
+  6: "Onchain Dev Tools",
+  7: "Security Tools",
+  8: "Fun Modules",
+  9: "Multi-chain",
+  10: "AI Tools"
+};
+2.5. Erişim Seviyesi
+
+export const ACCESS = {
+  FREE: 0,
+  PREMIUM: 1
+};
+
+🟩 3. contractService.js PLANI
+Bu dosya TÜM blocking zincir işlemlerini yönetir.
+Gerçek bir Web3 dApp mimarisi.
+
+🔧 Fonksiyon Listesi
+
+✔ getUserProfile(address)
+MainHub → getUserProfile çağırır.
+Döndürür:
+	•	username
+	•	socials
+	•	total actions
+	•	moduleActions
+	•	premium status
+
+✔ createProfile(username, socials)
+Profil oluşturmak için kullanılan fonksiyon.
+
+✔ executeModule(moduleId, params)
+Akış:
+	1	Kullanıcı butona basar
+	2	MainHub.executeModule çağrılır
+	3	Modülün execute() fonksiyonu çalışır
+	4	Eventler alınır
+
+✔ getGlobalStats()
+Global istatistikleri çeker.
+
+✔ getModuleStats(moduleId)
+Bir modülün usageCount bilgisini çeker.
+
+✔ checkNFTAccess(address)
+NFT kontratından:
+	•	Kullanıcının NFT’si var mı?
+	•	Premium mu?
+
+✔ mintNFT()
+Premium Access Pass satın alma fonksiyonu.
+
+✔ getModuleInfo(moduleId)
+Modül detaylarını çeker:
+	•	moduleName
+	•	description
+	•	type
+	•	version
+
+🟫 4. FRONTEND API MİMARİSİ (Ekstra Profesyonel Detay)
+Frontend üç katmandan oluşacak:
+
+(A) View Layer (React Components)
+	•	ModulesList.jsx
+	•	ModuleDetail.jsx
+	•	Profile.jsx
+	•	Leaderboard.jsx
+	•	NFTMint.jsx
+	•	WalletConnect.jsx
+
+(B) Hooks / State Layer
+	•	useUser()
+	•	useModules()
+	•	useWallet()
+	•	useNFT()
+
+(C) Blockchain Service Layer
+	•	contractService.js
+	•	walletService.js
+	•	utils/formatter.js
+Bu mimari temiz + scalable + modüler frontend sağlar.
