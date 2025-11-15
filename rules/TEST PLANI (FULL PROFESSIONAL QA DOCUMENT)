@@ -1,0 +1,139 @@
+TEST PLANI (FULL PROFESSIONAL QA DOCUMENT)
+(Ana Kontrat + Modüller + Frontend testi)
+
+🟩 1. ANA KONTRAT TESTLERİ (MainHub QA Checklist)
+Ana kontrat Jello’nun beyni olduğu için en kritik testler buradadır. Testler Remix, Hardhat, Foundry veya Thirdweb CLI test runner ile yapılabilir.
+
+✔ 1.1. Profil Oluşturma Testleri
+Test 1 — Yeni kullanıcı profil oluşturma
+	•	createProfile("samet") çağır
+	•	Event: ProfileCreated yayınlanmalı
+	•	getUserProfile sonucu:
+	◦	username = "samet"
+	◦	createdAt > 0
+	◦	totalActions = 0
+	◦	uniqueModulesUsed = 0
+Test 2 — Profil tekrar oluşturmayı engelle
+	•	Aynı cüzdan ile ikinci kez createProfile çağır → Revert bekleniyor: "ProfileAlreadyExists"
+Test 3 — Sosyal hesap ekleme
+	•	Twitter, GitHub, Talent, SELF-ID alanları doldur
+	•	getUserProfile() JSON karşılaştırması yapılır
+
+✔ 1.2. Modül Ekleme Testleri (registerModule)
+Test 4 — Owner modül eklesin
+	•	registerModule(0xModül, category, type, premium, version)
+	•	Event: ModuleRegistered tetiklenmeli
+	•	getModuleInfo() → tüm field’lar doğru mu kontrol edilir
+Test 5 — Owner olmayan modül ekleyemesin
+	•	Normal kullanıcı registerModule çağırır → Revert: "OnlyOwner"
+Test 6 — Pasifleştirme / aktifleştirme
+	•	deactivateModule(moduleID) → modül inactive
+	•	activateModule(moduleID) → tekrar active
+
+✔ 1.3. Erişim Kontrolü Testleri (Access Control)
+Test 7 — Profil yoksa modül kullanılamamalı
+	•	executeModule(moduleID) çağır → Revert: "ProfileRequired"
+Test 8 — Premium modül + NFT yok → engellenmeli
+	•	premium modül seç
+	•	executeModule() → Revert: "PremiumAccessRequired"
+Test 9 — Free modül + NFT yok → çalışmalı
+	•	executeModule(Free module) → Başarılı işlem → Komisyon: 0.1 CELO alınmalı
+Test 10 — Premium modül + NFT varsa → çalışmalı
+	•	executeModule(Premium module) → Komisyon: 0.01 CELO
+
+✔ 1.4. NFT Kontrol Testleri
+Test 11 — hasNFT doğru çalışıyor mu?
+	•	mintNFT() → kullanıcıda 1 adet NFT olmalı
+	•	mainHub.hasAccess(user, premiumModule) → TRUE döner
+Test 12 — NFT olmayan kullanıcı → premium modülü kullanamasın
+→ Revert gelmeli.
+Test 13 — NFT mint fiyatı doğru mu?
+	•	getNFTPrice() → 5 CELO (başlangıç)
+	•	50 modül eklendiğinde → +2 CELO
+
+🟦 2. MODÜL TESTLERİ (Her 50 modül için uygulanacak)
+Her modül aynı şablona göre test edilecek.
+
+✔ 2.1. execute() Fonksiyonu Testleri
+Test 14 — execute tetikleniyor mu?
+	•	execute() çağır
+	•	Event: ModuleAction gelmeli
+	•	usageCount artmalı
+	•	mainHub.recordUsage çalışmalı (stats artmalı)
+Test 15 — execute parametreleri doğru mu?
+Örnek:
+	•	GM message → doğru kaydedilmiş mi
+	•	Deploy → doğru adres döndü mü
+	•	NFT Mint → tokenID döndü mü
+
+✔ 2.2. Event Testleri
+Her modül execute → event:
+
+ModuleAction(address user, uint256 timestamp, details)
+Kontrol:
+	•	user doğru mu
+	•	timestamp doğru mu
+	•	details JSON formatında doğru mu
+
+✔ 2.3. recordUsage Testi
+Test 16 — Kullanıcı stats güncellenmeli
+execute sonrası:
+	•	totalActions += 1
+	•	moduleActions[moduleID] += 1
+	•	if first time → uniqueModulesUsed += 1
+	•	premiumModuleCount (premium modülse)
+Test 17 — Global stats güncellenmeli
+execute sonrası:
+	•	totalGlobalActions += 1
+	•	moduleActions[moduleID] += 1
+
+🟦 3. FRONTEND TESTLERİ (UI + Web3 İşlemleri)
+Frontend testsiz olmaz. Her butonun blockchain ile konuştuğu test edilmelidir.
+
+✔ 3.1. Wallet Connect Testleri
+Test 18 — Cüzdan bağlama
+	•	WalletConnect modal açılıyor mu
+	•	Cüzdan bağlanıyor mu
+	•	Adres ekrana geliyor mu
+Test 19 — Yanlış network uyarısı
+	•	Yanlış chain → “Switch Network” uyarısı gelmeli
+
+✔ 3.2. Modül Çağırma Testleri
+Test 20 — Free modül execute
+	•	“Execute Module” tuşuna bas
+	•	MetaMask açılmalı
+	•	İşlem tamamlanmalı
+	•	UI success mesajı çıkmalı
+	•	MainHub stats artmalı
+Test 21 — Premium modül execute (NFT yoksa)
+	•	UI → “Premium Required” banner
+	•	Buton → NFT Mint Page’e yönlendirmeli
+Test 22 — Premium modül execute (NFT varsa)
+	•	Komisyon 0.01 CELO olmalı
+	•	UI → gerçek zamanlı güncelleme göstermeli
+
+✔ 3.3. Stats Okuma Testleri
+Test 23 — Profile → Stats doğru mu?
+	•	totalActions doğru
+	•	uniqueModulesUsed doğru
+	•	moduleActions doğru
+	•	premium status doğru
+Test 24 — Leaderboard doğru sırada mı?
+	•	En yüksek skor → en üstte
+	•	Pagination çalışıyor
+	•	All-time / weekly / monthly filtreler çalışıyor
+Test 25 — Module Detail stats doğru mu?
+	•	usageCount doğru
+	•	moduleActions doğru
+
+🟫 4. TAMAMLANMIŞ TEST CHECKLIST
+Bu bölüm QA ekibi veya sen test sırasında tikleyeceksin:
+
+Ana Kontrat Testleri
+☑ Profil oluşturma ☑ Sosyal hesap ekleme ☑ Modül ekleme ☑ Modül aktivasyon / pasifleme ☑ Premium kontrol ☑ Free modül kontrol ☑ NFT kontrolü ☑ Komisyon kontrolü ☑ Stats güncelleme ☑ Eventler
+
+Modül Testleri
+☑ execute() ☑ recordUsage ☑ Event tetiklenmesi ☑ usageCount ☑ Premium flag ☑ İç mantık testi
+
+Frontend Testleri
+☑ WalletConnect ☑ Execute Module ☑ Stats Dashboard ☑ Leaderboard ☑ NFT Mint Page ☑ Profile Page ☑ constants.js adres doğruluğu ☑ contractService.js fonksiyonları
