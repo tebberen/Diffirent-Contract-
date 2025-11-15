@@ -1,0 +1,122 @@
+MODÜL TASARIM HAZIRLIĞI (Blueprint Üretimi)
+Yeni bir modül eklemeden önce aşağıdaki bilgilerin belirlenmesi zorunludur.
+✔ 1.1. Modül Bilgileri
+Aşağıdaki formatta bir “MODÜL BLUEPRINT” hazırlanmalıdır:
+
+ModuleName: (modül adı)
+Category: (kategori adı)
+ModuleID: (bir sonraki ID)
+Premium: (true/false)
+Description: (modülün yaptığı iş)
+Inputs: (kullanıcının gireceği parametreler, yoksa "none")
+Outputs: (modülün üreteceği sonuç)
+Event: ModuleAction
+Version: 1
+➤ NOT:
+Bu blueprint ben (ChatGPT) tarafından hazırlanmalıdır. Blueprint olmadan Codex modülü doğru şekilde yazamaz.
+
+🟧 2. MODULE CONTRACT CODE ÜRETİMİ (Codex ile)
+Hazırlanan blueprint Codex’e verilir ve şu komut yazılır:
+“Codex, bu blueprint’e göre Jello modül şablonuna uygun bir modül kontratı yaz.”
+Codex'in oluşturacağı her modül şu 5 fonksiyonu içermelidir:
+✔ 2.1. execute()
+Modülün ana işlemini yapar.
+✔ 2.2. getModuleInfo()
+Modül bilgilerini frontend’e döner.
+✔ 2.3. supportsFeature()
+Modülün hangi özellikleri desteklediğini bildirir.
+✔ 2.4. constructor(mainHubAddress, moduleID)
+MainHub ile bağlantıyı kurar.
+✔ 2.5. mainHub.recordUsage(msg.sender, moduleID)
+Her execute çağrısında kullanıcı istatistiğini günceller.
+
+🟩 3. CONTRACT DEPLOY (Remix veya Script)
+Codex’in yazdığı kontrat yayınlanmaya hazır olduğunda:
+✔ 3.1. Derleme
+	•	Compiler: 0.8.24
+	•	Optimization: ON
+✔ 3.2. Deploy
+Deploy sırasında:
+
+constructor:
+- mainHubAddress → Mevcut MainHub.sol adresi
+- moduleID → yeni ID
+Deploy’dan sonra yeni modülün adresi oluşturulur.
+
+🟥 4. MAİNHUB’A ENTEGRASYON (registerModule)
+En kritik adım budur. Yeni modül MainHub’a kaydedilmeden çalışmaz.
+✔ 4.1. Aşağıdaki fonksiyon çağrılır:
+
+registerModule(
+   moduleAddress,
+   categoryID,
+   moduleType,
+   isPremium,
+   version
+);
+✔ 4.2. Eğer bu adım atlanırsa:
+❌ executeModule çalışmaz ❌ stats güncellenmez ❌ modül UI’de görünmez ❌ fee sistemi işlemez ❌ event’ler tetiklenmez
+Bu nedenle her modül MUTLAKA MainHub’a register edilmelidir.
+
+🟦 5. FRONTEND ENTEGRASYONU (constants.js)
+Yeni modülün UI’de görünmesi için constants.js içine 1 satır eklenmelidir:
+
+MODULES[ModuleID] = {
+  name: "ModuleName",
+  category: "CategoryName",
+  type: "module",
+  premium: true/false,
+  address: "0xModuleAddress"
+}
+Bu adım yapılınca:
+	•	Modules Page modülü listeler
+	•	Module Detail Page açılır
+	•	executeModule doğru çalışır
+
+🟧 6. TEST SÜRECİ (QA CHECKLIST)
+Yeni modül eklendikten sonra aşağıdaki testler yapılmalıdır:
+✔ 6.1. executeModule test
+	•	Tıklayınca MetaMask açılmalı
+	•	İşlem başarıyla bitmeli
+	•	Ücret (fee) doğru alınmalı
+	•	Event tetiklenmeli
+✔ 6.2. Stats güncelleme
+	•	kullanıcı totalActions +1
+	•	moduleActions[moduleID] +1
+	•	globalStats +1
+✔ 6.3. UI test
+	•	Modül görünmeli
+	•	Module Detail Page açılmalı
+	•	executeModule → başarıyla çalışmalı
+
+🟩 7. GÜNCELLEME VE VERSİYONLAMA
+Yeni versiyon bir modül ekliyorsan modül kaydı şu şekilde yapılır:
+
+version = version + 1
+Eski modül istenirse pasif yapılabilir:
+
+deactivateModule(moduleID)
+
+🟧 8. MODÜL EKLEME SÜRECİNİN TAM ÖZETİ
+Aşağıdaki 8 maddelik özet her yeni modül eklediğinde yapılacak zorunlu listedir:
+
+1) Blueprint hazırla (ChatGPT’den al)
+2) Codex’e blueprint’i ver → kontrat kodu yaz
+3) Remix’te dosyayı oluştur
+4) Kodun tamamını yapıştır
+5) Deploy (MainHub + ModuleID ile)
+6) registerModule ile MainHub’a bağla
+7) constants.js içine modül ekle
+8) executeModule + stats + UI test et
+Bu 8 adım → Jello’nun sonsuz genişleyebilir olmasını sağlar.
+
+🟦 Bu dokümanı Codex dokümantasyonuna ekleyebilirsin.
+Bu belge:
+	•	Tam profesyonel
+	•	Eksiksiz
+	•	Denetçi/audit uyumlu
+	•	Geliştiricilerle paylaşılabilir
+	•	Jello’nun resmi SOP standardı
+şeklinde hazırlanmıştır.
+
+
