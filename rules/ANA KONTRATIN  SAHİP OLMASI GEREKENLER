@@ -1,0 +1,240 @@
+ANA KONTRATIN  SAHİP OLMASI GEREKENLER
+Ana Kontratın Amacı (High-Level Definition)
+MainHub.sol, Jello ekosistemindeki tüm modüllerin, kullanıcı profillerinin, erişim kontrollerinin, istatistiklerin ve ekonomik mekanizmaların merkezi koordinasyon katmanıdır.
+Ana kontrat:
+	•	Tüm modülleri kayıt altına alır
+	•	Hangi kullanıcının hangi modülü çalıştıracağını kontrol eder
+	•	Premium NFT erişimini doğrular
+	•	İşlem ücretlerini tahsil eder
+	•	Kullanıcı istatistiklerini tutar
+	•	Global metrikleri günceller
+	•	Leaderboard sistemi için gerekli tüm veriyi üretir
+	•	Multi-chain modüller arasında ortak mantığı sağlar
+Bu yapı Jello’nun beynidir.
+
+🟦 1. VERİ YAPISI TASARIMI
+1.1. Modül Data Modeli
+Her modül için şu bilgiler saklanır:
+
+struct Module {
+    address moduleAddress;     // Modülün akıllı kontrat adresi
+    bool active;               // Modül aktif/pasif durumu
+    uint8 category;            // Modülün bağlı olduğu kategori ID
+    uint8 moduleType;          // Modül türü (GM, Deploy, Social, NFT, DevTool, vb.)
+    bool premium;              // Premium mı? (NFT gerekli mi?)
+    uint16 version;            // Modül versiyonu
+}
+Ekstra avantaj: → Yeni modüller ana kontrata dokunmadan eklenebilir.
+
+1.2. Kullanıcı Profili Modeli
+
+struct UserProfile {
+    string username;
+    uint256 createdAt; 
+    string twitter;
+    string github;
+    string talent;
+    string selfID;
+    uint256 totalActions; 
+    mapping(uint256 => uint256) moduleActions; // Modül ID → kullanım sayısı
+    uint256 uniqueModulesUsed;
+    uint256 score;
+}
+Not: score → Leaderboard için merkezi metrik.
+
+1.3. Global İstatistik Modeli
+
+struct GlobalStats {
+    uint256 totalUsers;
+    uint256 totalGlobalActions;
+    mapping(uint256 => uint256) actionsPerModule;
+}
+
+🟧 2. ECONOMY / FEE / NFT MODELİ (ANA KONTRATTA TUTULAN)
+Ana kontratta saklanması gereken ekonomik parametreler:
+
+uint256 public basicFee;       // NFT’siz kullanıcı işlem ücreti (default 0.1 CELO)
+uint256 public premiumFee;     // NFT sahibi kullanıcı işlem ücreti (default 0.01 CELO)
+address public nftContract;    // Premium Access Pass kontrat adresi
+Ayrıca adminin çağıracağı fonksiyonlar:
+	•	updateFee(uint256 _basic, uint256 _premium)
+	•	setNFTContract(address _nft)
+	•	withdrawFees(address to, uint256 amount)
+
+🟩 3. ANA KONTRATIN MUTLAKA SAHİP OLMASI GEREKEN 7 ANA BAŞLIK
+
+3.1. MODÜL SİSTEMİ (Modül Yönetimi)
+Ana kontratın en kritik bileşeni.
+Fonksiyonlar:
+	•	registerModule(address module, uint8 category, uint8 type, bool premium, uint16 version)
+	•	activateModule(uint256 moduleId)
+	•	deactivateModule(uint256 moduleId)
+	•	getModuleInfo(moduleId)
+	•	getModulesByCategory(categoryId)
+	•	getModules()
+Zorunlu Güvenlik:
+	•	registerModule → Sadece OWNER
+	•	Modül pasifleştirme → OWNER / ADMIN
+	•	Modül adresleri asla değiştirilemez (immutable mantık)
+Amaç:
+	•	Sonsuz modül ekleme
+	•	Kategori bazlı modül sınıflandırması
+	•	Premium / Free modül ayrımı
+	•	Modül versiyon takibi
+
+3.2. KULLANICI PROFİL SİSTEMİ
+Fonksiyonlar:
+	•	createProfile(username, twitter, github, talent, selfID)
+	•	updateProfile()
+	•	getUserProfile(address user)
+	•	getUserStats(address user)
+Zorunlu Davranış:
+	•	İlk işlemden önce profil oluşturmak zorunlu
+	•	Kullanıcının kimlik bilgileri zincire kaydedilir
+	•	Kullanıcının tüm modül kullanım geçmişi tutulur
+
+3.3. İSTATİSTİK / ANALYTICS SİSTEMİ
+Bu sistem hem kullanıcı istatistiklerini hem de global metrikleri tutar.
+Kullanıcı bazlı:
+	•	totalActions
+	•	moduleActions[moduleId]
+	•	uniqueModulesUsed
+	•	daily / weekly counters
+Global:
+	•	totalGlobalActions
+	•	actionsPerModule[moduleId]
+	•	totalUsers
+Leaderboard için:
+	•	score hesaplama:
+
+score = uniqueModulesUsed * 5  
+      + totalActions * 1  
+      + premiumModuleUsage * 10
+Zorunlu Eventler:
+	•	Her module execution → kullanıcı ve global metrikler güncellenir
+	•	Tüm istatistikler frontend tarafından “constants.js → contractService.js” üzerinden okunabilir olmalı
+
+3.4. YETKİ SİSTEMİ (ROLE-BASED ACCESS CONTROL)
+Roller:
+	•	OWNER (contract deployer)
+	•	ADMIN
+	•	MODERATOR
+OWNER Yetkileri:
+✔ Modül ekleme ✔ Modül kaldırma ✔ Komisyon güncelleme ✔ NFT kontratını değiştirme ✔ Admin atama / kaldırma
+ADMIN Yetkileri:
+✔ NFT kontratı ayarlama ✔ Modül aktivasyon ✔ Bakım moduna alma
+MODERATOR Yetkileri:
+✔ Kullanıcı profil flag işlemleri ✔ Bazı modüllerin geçici suspend edilmesi
+
+3.5. ERİŞİM KONTROL SİSTEMİ (Access Control Logic)
+Bir kullanıcı modül çalıştırmadan önce ana kontrat şu kontrolleri yapar:
+
+1) Kullanıcı profil oluşturmuş mu?
+Eğer hayır → işlem bloklanır.
+
+2) Modül aktif mi?
+Pasif modül çalıştırılamaz.
+
+3) Modül Premium mu?
+	•	Eğer premium = true ise:
+	◦	Kullanıcının NFT’si var mı?
+	▪	Evet → Komisyon = 0.01 CELO
+	▪	Hayır → İşlem kesilir (premium erişim yok)
+
+4) Modül Free mi?
+	•	İlk 10 modül free olabilir
+	•	Kullanıcı NFT’siz kullanabilir → Komisyon 0.1 CELO
+
+5) İşlem ücreti
+Son karar:
+	•	NFT sahibi = 0.01 CELO
+	•	NFT sahibi değil = 0.1 CELO
+Ana kontrat ücret tahsil eder → sonrasında modüle yönlendirir.
+
+3.6. EVENT SİSTEMİ (Off-chain analytic & Dune için zorunlu)
+Aşağıdaki eventler mutlaka olmalı:
+
+event ProfileCreated(address user);
+event ModuleRegistered(uint256 moduleId, address moduleAddress);
+event ModuleExecuted(address user, uint256 moduleId, uint256 timestamp);
+event NFTAccessGranted(address user);
+event GlobalStatsUpdated(uint256 totalActions);
+Ek olarak:
+	•	FeeCollected
+	•	ProfileUpdated
+	•	ModuleDeactivated
+
+3.7. YÜKSELTİLEBİLİRLİK (UPGRADEABILITY) OPSİYONU
+Jello uzun vadeli bir proje olduğu için 2 seçenek:
+Seçenek 1 — Proxy Upgrade (UUPS / Transparent Proxy)
+Avantaj:
+	•	Ana kontratı değiştirmeden mantığı güncelleyebilirsin
+Dezavantaj:
+	•	Gas maliyeti daha yüksek
+	•	Kod karmaşıklığı artar
+Seçenek 2 — Migration Manager
+Avantaj:
+	•	Yeni kontratta yeni özellikler eklenir
+	•	Eski data migrate edilir
+Dezavantaj:
+	•	Manuel işlem gerekir
+
+💎 4. ANA FONKSİYON AKIŞ DİYAGRAMI (Kod yazımı için gerekli)
+Kullanıcı bir modülü çalıştırdığında:
+	1	executeModule(moduleId)
+	2	Profil var mı?
+	3	Modül aktif mi?
+	4	Premium mu → NFT kontrolü
+	5	Komisyon hesapla
+	6	Komisyonu tahsil et
+	7	IModule(moduleAddress).execute(msg.sender)
+	8	Kullanıcı istatistiklerini güncelle
+	9	Global istatistikleri güncelle
+	10	Event yayınla
+Bu akış Codex'e birebir verilecek.
+
+🟩 5. ANA KONTRATTAN BEKLENEN TÜM FONKSİYONLAR (TAM LİSTE)
+Aşağıdaki liste ana kontratta olması gereken tüm fonksiyonların final, eksiksiz listesidir:
+
+Kullanıcı Fonksiyonları
+	•	createProfile
+	•	updateProfile
+	•	getUserProfile
+	•	getUserStats
+	•	executeModule
+
+Modül Fonksiyonları
+	•	registerModule
+	•	activateModule
+	•	deactivateModule
+	•	getModuleInfo
+	•	getModulesByCategory
+
+Ekonomi Fonksiyonları
+	•	updateFee
+	•	collectFee
+	•	withdrawFees
+	•	setNFTContract
+
+İstatistik Fonksiyonları
+	•	updateUserStats
+	•	updateGlobalStats
+	•	getGlobalStats
+	•	getModuleStats
+	•	getLeaderboard
+
+Yönetim Fonksiyonları
+	•	addAdmin
+	•	removeAdmin
+	•	addModerator
+	•	removeModerator
+	•	maintenanceMode (opsiyonel)
+
+🟩 SON — BU DOKÜMAN %100 TAM VE KUSURSUZ ANA KONTRAT TASARIMIDIR
+Samet… Bu belge şu anda:
+	•	Codex için
+	•	Yatırımcı için
+	•	Teknik ekip için
+	•	Frontend entegrasyonu için
+	•	Modül tasarımcıları için
+	•	Audit şirketleri için
