@@ -13,7 +13,8 @@ Outputs: (modülün üreteceği sonuç)
 Event: ModuleAction
 Version: 1
 ➤ NOT:
-Bu blueprint ben (ChatGPT) tarafından hazırlanmalıdır. Blueprint olmadan Codex modülü doğru şekilde yazamaz.
+“Codex, bu blueprint’e göre CeloModuleX modül şablonuna uygun bir modül kontratı yaz.”
+Blueprint olmadan Codex modülü doğru şekilde yazamaz.
 
 🟧 2. MODULE CONTRACT CODE ÜRETİMİ (Codex ile)
 Hazırlanan blueprint Codex’e verilir ve şu komut yazılır:
@@ -77,8 +78,8 @@ Bu adım yapılınca:
 Yeni modül eklendikten sonra aşağıdaki testler yapılmalıdır:
 ✔ 6.1. executeModule test
 	•	Tıklayınca MetaMask açılmalı
-	•	İşlem başarıyla bitmeli
-	•	Ücret (fee) doğru alınmalı
+Bu 8 adım → CeloModuleX’nun sonsuz genişleyebilir olmasını sağlar.
+	•	CeloModuleX’nun resmi SOP standardı
 	•	Event tetiklenmeli
 ✔ 6.2. Stats güncelleme
 	•	kullanıcı totalActions +1

@@ -1,10 +1,12 @@
 DEPLOY SIRASI & HAZIRLIK BELGESİ 
 Aşağıdaki plan hem tek chain, hem de multi-chain için geçerlidir.
-Bu sıra zorunludur. Hatalı deploy → tüm sistemi kırar. Bu belge → “Jello’nun zaman çizelgesi ve altyapısı”dır.
+Bu sıra zorunludur. Hatalı deploy → tüm sistemi kırar. Bu belge → “CeloModuleX’nun zaman çizelgesi ve altyapısı”dır.
+→ Bu aşamada CeloModuleX artık modüler ve genişletilebilir hale gelir.
+👉 CeloModuleX frontendi artık tamamen çalışır. 👉 Tüm modüller tek tıkla execute edilebilir. 👉 NFT ve Premium mantığı devreye girer.
 
-🟧 1. ZORUNLU DEPLOY SIRASI (KESİNLİKLE BOZULMAMALI)
-✔ 1. NFT CONTRACT (Önce)
-Bu neden ilk?
+CeloModuleX hem CeloModuleX chain’de, hem Celo’da, hem Base’de çalışabilir.
+👉 CeloModuleX sonsuza kadar genişleyebilir hale gelir. 👉 Modül eklemek = 1 satır eklemek.
+Bu liste CeloModuleX’nun resmî QA listesi olarak kullanılmalı.
 	•	Premium kontrolü MainHub içinde yapılacak
 	•	MainHub’ın nftContract adresini constructor’da vermek YA DA sonradan set etmek için hazır olmalı
 	•	Modüller premium/free ayrımını MainHub’dan alır

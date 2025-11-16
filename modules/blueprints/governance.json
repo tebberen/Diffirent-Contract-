@@ -1,0 +1,41 @@
+{
+  "name": "GovernanceModule",
+  "version": "1.0.0",
+  "category": "governance",
+  "moduleType": "voting",
+  "premium": true,
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "proposal": { "type": "string" },
+      "options": { "type": "array", "items": { "type": "string" } },
+      "snapshotBlock": { "type": "number" }
+    },
+    "required": ["proposal", "options"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "proposalId": { "type": "string" },
+      "status": { "type": "string" }
+    }
+  },
+  "eventSchema": [
+    {
+      "name": "VoteCast",
+      "parameters": [
+        { "name": "voter", "type": "address", "indexed": true },
+        { "name": "proposalId", "type": "uint256", "indexed": true },
+        { "name": "support", "type": "uint8", "indexed": false },
+        { "name": "weight", "type": "uint256", "indexed": false }
+      ]
+    }
+  ],
+  "abiAssumptions": [
+    "function propose(string calldata details) external returns (uint256)",
+    "function castVote(uint256 proposalId, uint8 support) external"
+  ],
+  "exampleUsage": "DAO üyeleri GovernanceModule ile fikir birliği sağlar.",
+  "integrationNotes": "Snapshot.org mirror exportu için GraphQL endpoint; Celo AI ile öneri özetleri otomatik üretilir."
+}

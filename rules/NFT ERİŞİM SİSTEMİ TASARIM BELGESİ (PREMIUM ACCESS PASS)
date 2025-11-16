@@ -2,14 +2,14 @@ NFT ERİŞİM SİSTEMİ TASARIM BELGESİ (PREMIUM ACCESS PASS)
 (Tam profesyonel, eksiksiz, kontrat + ekonomi + metadata + görsel + fiyat dinamiği)
 
 🔥 0. NFT’nin Amacı ve Rolü (High-Level Definition)
-Premium NFT Access Pass, Jello platformundaki tüm modüllere erişim sağlayan tek seviye, sınırsız erişim sağlayan premium üyelik pasıdır.
+Premium NFT Access Pass, CeloModuleX platformundaki tüm modüllere erişim sağlayan tek seviye, sınırsız erişim sağlayan premium üyelik pasıdır.
 Bu NFT’nin görevi:
-	•	Kullanıcının Jello’daki tüm modülleri açmasını sağlamak
+	•	Kullanıcının CeloModuleX’daki tüm modülleri açmasını sağlamak
 	•	İşlem ücretini düşürmek (0.1 CELO → 0.01 CELO)
 	•	Platform büyüdükçe değeri artan sınırlı erişim varlığı sunmak
-	•	Jello’nun gelir modelinin temelini oluşturmak
+	•	CeloModuleX’nun gelir modelinin temelini oluşturmak
 	•	Erken kullanıcıları ödüllendirmek
-NFT, Jello’nun premium kapısıdır.
+NFT, CeloModuleX’nun premium kapısıdır.
 
 🟦 1. NFT TÜRÜ (Access Tier)
 Premium NFT Access Pass için şimdilik tek bir tier belirlenmiştir:
@@ -23,11 +23,12 @@ Tier Unlimited
 Gelecekte istenirse ek tier’lar oluşturulabilir:
 	•	“Developer Pass”
 	•	“Lifetime Supporter”
-	•	“Tester / Founders Tier” vb.
-Ama şu an için Unlimited tek seviye olarak tasarlanmıştır.
+Bu sistem, CeloModuleX ekonomisinin en önemli yapı taşıdır.
+NFT görselleri CeloModuleX’nun marka kimliğiyle uyumlu olmalıdır.
+	•	Tek bir unified görsel: “CeloModuleX Premium Pass” Güvenilir, sade ve premium algısı yüksek.
 
-🟧 2. NFT FİYATLANDIRMA MODELİ (Dynamic Pricing Engine)
-Bu sistem, Jello ekonomisinin en önemli yapı taşıdır.
+  "name": "CeloModuleX Premium Access Pass",
+  "description": "Unlimited access to all current and future CeloModuleX modules. Premium users get 10x cheaper transaction fees and full-feature access across all chains.",
 2.1. Başlangıç Fiyatı
 	•	50 modül → 5 CELO
 2.2. Dinamik Fiyatlandırma Mekanizması
@@ -129,7 +130,7 @@ Premium NFT kontratına eklenecek zorunlu fonksiyonlar:
 5.1. mintNFT()
 Kullanıcı NFT satın alır. Ücret MainHub tarafından tahsil edilir.
 5.2. getNFTPrice()
-Dinamik fiyatlandırmayı döner.
+	•	CeloModuleX’nun uzun vadeli gelir motoru
 5.3. updateNFTPrice()
 Sadece OWNER çağırabilir.
 5.4. hasNFT(address user)

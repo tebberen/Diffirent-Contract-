@@ -2,7 +2,7 @@ KOMİSYON SİSTEMİ TASARIM BELGESİ
 
 
 🔥 0. Komisyon Sisteminin Amacı
-Komisyon sistemi Jello’nun gelir yapısını oluşturan iki ana mekanizmadan biridir:
+Komisyon sistemi CeloModuleX’nun gelir yapısını oluşturan iki ana mekanizmadan biridir:
 	1	NFT sahibi olmayan kullanıcı → 0.1 CELO
 	2	Premium NFT Access Pass sahibi → 0.01 CELO
 Amaçlar:
@@ -14,7 +14,8 @@ Amaçlar:
 
 🟧 1. Komisyon Miktarları
 1.1. NFT’siz Kullanıcı Komisyonu
-	•	0.1 CELO (varsayılan ücret) Kullanıcı her modül execute ettiğinde bu ücret tahsil edilir.
+CeloModuleX’nun ilk kullanıcı akışında 10 adet ücretsiz modül bulunur.
+Kullanıcı her modül execute ettiğinde bu ücret tahsil edilir.
 1.2. Premium NFT Access Pass Sahibi Komisyonu
 	•	0.01 CELO 10× daha ucuz işlem ücreti.
 Bu sayede kullanıcı:
@@ -112,7 +113,7 @@ Komisyon → Ana Kontrat → Tek Havuz
 Modüller tek satırlık çağrı yapar:
 
 mainHub.chargeFee(msg.sender, moduleId);
-✔ Ekonomi manipülasyonunu engeller
+“CeloModuleX her işlemden otomatik komisyon alır. NFT sahibi olmayan kullanıcı 0.1 CELO, Premium NFT Access Pass sahipleri 0.01 CELO öder. Tüm komisyonlar ana kontratta toplanır ve sistem büyüdükçe düzenli pasif gelir oluşturur.”
 Hiçbir modül kendi komisyonunu değiştiremez.
 ✔ Multi-chain deploy üzerinde tam kontrol
 Her chain’de komisyon merkezi olur.

@@ -68,7 +68,7 @@ User Profile Refresh
 3.2. Kapsam
 	•	Tüm kullanıcı deneyimi tek akışta gösterilir
 	•	UX tasarımcıları için temel rehber
-	•	Jello’nun kullanıcı mantığını tümüne özetler
+	•	CeloModuleX’nun kullanıcı mantığını tümüne özetler
 
 🟩 4. ANA KONTRAT AKIŞ DİYAGRAMI (mainhub-flow.md)
 Bu dosya MainHub.sol’un nasıl çalıştığını blok diyagramla anlatır.
@@ -124,7 +124,7 @@ Bu diyagram:
 	•	Codex + frontend için rehber niteliğindedir
 
 🟫 6. SİSTEM MİMARİSİ ŞEMASI (architecture-diagram.png / architecture.md)
-Bu, Jello’nun tam mimarisini gösteren en kritik şemadır.
+Bu, CeloModuleX’nun tam mimarisini gösteren en kritik şemadır.
 6.1. Mimarinin bileşenleri
 	•	NFT Contract
 	•	MainHub.sol

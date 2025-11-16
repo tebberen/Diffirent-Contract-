@@ -1,6 +1,6 @@
 ANA KONTRATIN  SAHİP OLMASI GEREKENLER
 Ana Kontratın Amacı (High-Level Definition)
-MainHub.sol, Jello ekosistemindeki tüm modüllerin, kullanıcı profillerinin, erişim kontrollerinin, istatistiklerin ve ekonomik mekanizmaların merkezi koordinasyon katmanıdır.
+MainHub.sol, CeloModuleX ekosistemindeki tüm modüllerin, kullanıcı profillerinin, erişim kontrollerinin, istatistiklerin ve ekonomik mekanizmaların merkezi koordinasyon katmanıdır.
 Ana kontrat:
 	•	Tüm modülleri kayıt altına alır
 	•	Hangi kullanıcının hangi modülü çalıştıracağını kontrol eder
@@ -10,7 +10,7 @@ Ana kontrat:
 	•	Global metrikleri günceller
 	•	Leaderboard sistemi için gerekli tüm veriyi üretir
 	•	Multi-chain modüller arasında ortak mantığı sağlar
-Bu yapı Jello’nun beynidir.
+Bu yapı CeloModuleX’nun beynidir.
 
 🟦 1. VERİ YAPISI TASARIMI
 1.1. Modül Data Modeli
@@ -132,7 +132,7 @@ Bir kullanıcı modül çalıştırmadan önce ana kontrat şu kontrolleri yapar
 1) Kullanıcı profil oluşturmuş mu?
 Eğer hayır → işlem bloklanır.
 
-2) Modül aktif mi?
+CeloModuleX uzun vadeli bir proje olduğu için 2 seçenek:
 Pasif modül çalıştırılamaz.
 
 3) Modül Premium mu?

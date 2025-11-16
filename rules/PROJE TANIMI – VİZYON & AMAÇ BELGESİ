@@ -1,32 +1,39 @@
 PROJE TANIMI – VİZYON & AMAÇ BELGESİ  
 
 1. Projenin Kısa Açıklaması (2–3 cümle)
-Jello, kullanıcıların tek bir arayüz üzerinden onlarca farklı akıllı kontrat özelliğini kullanabildiği, modüler, genişleyebilir ve multi-chain yapıda tasarlanmış on-chain aksiyon platformudur. Platform, her biri ayrı bir akıllı kontrat olan modüller üzerinden kullanıcıya “tek tıkla, çok çeşitli işlem” imkânı sunarken; NFT tabanlı erişim ve işlem bazlı komisyon modeliyle sürdürülebilir, ölçeklenebilir ve öngörülebilir bir gelir yapısı oluşturur. Jello’nun temel vizyonu, Web3 kullanıcılarının cüzdan aktivitesini zenginleştirerek blockchain’in sadece “swap ve bridge”ten ibaret olmadığını göstermek ve zincirlerin üzerinde gerçek bir etkileşim katmanı (engagement layer) inşa etmektir.
+CeloModuleX, kullanıcıların tek bir arayüz üzerinden onlarca farklı akıllı kontrat özelliğini kullanabildiği, modüler, genişleyebilir ve multi-chain yapıda tasarlanmış on-chain aksiyon platformudur. Platform, her biri ayrı bir akıllı kontrat olan modüller üzerinden kullanıcıya “tek tıkla, çok çeşitli işlem” imkânı sunarken; NFT tabanlı erişim ve işlem bazlı komisyon modeliyle sürdürülebilir, ölçeklenebilir ve öngörülebilir bir gelir yapısı oluşturur. CeloModuleX’nun temel vizyonu, Web3 kullanıcılarının cüzdan aktivitesini zenginleştirerek blockchain’in sadece “swap ve bridge”ten ibaret olmadığını göstermek ve zincirlerin üzerinde gerçek bir etkileşim katmanı (engagement layer) inşa etmektir.
+Günümüzde çoğu kullanıcı için blockchain deneyimi; GM atmak, basit bir swap yapmak, bir iki NFT mintlemek ve zaman zaman bridge kullanmaktan ibaret. Bu, hem zincirin potansiyelini hem de cüzdanların gerçek kapasitesini sınırlayan dar bir kullanım alanı yaratıyor. Oysa akıllı kontratlar; sosyal etkileşimden geliştirici araçlarına, bağış mekanizmalarından on-chain kimliğe, deneysel protokollerden oyunlaştırılmış aksiyonlara kadar yüzlerce farklı kullanım senaryosuna sahip. CeloModuleX, tam da bu noktada devreye giriyor: Kullanıcıya tek bir platform üzerinden 50, 100, 500 hatta 1000+ farklı akıllı kontrat özelliğiyle etkileşime geçme imkânı sunan, modüler ve büyümeye açık bir “on-chain aksiyon merkezi” olarak konumlanıyor.
+CeloModuleX’nun çekirdeğinde, tüm modülleri yöneten bir ana kontrat (Main Hub) ve her özelliği bağımsız birer akıllı kontrat olarak sisteme bağlayan modüler mimari bulunuyor. Kullanıcı projeye geldiğinde, kurucu tarafından belirlenmiş 10 temel özelliği, işlem başına 0.1 CELO komisyon + gas ödeyerek kullanabiliyor. Sistemi deneyip mantığını anladıktan sonra, kullanıcı isterse Premium NFT Access Pass mint ederek sayfadaki tüm modülleri ve gelecekte eklenecek yeni özellikleri açabiliyor ve bu kez her işlemde sadece 0.01 CELO komisyon + gas ödüyor. Ekonomi tasarımı, eklenen her 50 yeni modülde NFT fiyatının +2 CELO artacak şekilde kurgulanmış durumda: Başlangıçta 50 modül için 5 CELO olan NFT, 100 modülde 7 CELO, 150 modülde 9 CELO oluyor. Böylece erken kullanıcılar daha düşük maliyetle sisteme girerken, platform büyüdükçe NFT’nin hem fonksiyonel hem ekonomik değeri artıyor.
 
-2. Uzun Açıklama (1–2 paragraf)
-Günümüzde çoğu kullanıcı için blockchain deneyimi; GM atmak, basit bir swap yapmak, bir iki NFT mintlemek ve zaman zaman bridge kullanmaktan ibaret. Bu, hem zincirin potansiyelini hem de cüzdanların gerçek kapasitesini sınırlayan dar bir kullanım alanı yaratıyor. Oysa akıllı kontratlar; sosyal etkileşimden geliştirici araçlarına, bağış mekanizmalarından on-chain kimliğe, deneysel protokollerden oyunlaştırılmış aksiyonlara kadar yüzlerce farklı kullanım senaryosuna sahip. Jello, tam da bu noktada devreye giriyor: Kullanıcıya tek bir platform üzerinden 50, 100, 500 hatta 1000+ farklı akıllı kontrat özelliğiyle etkileşime geçme imkânı sunan, modüler ve büyümeye açık bir “on-chain aksiyon merkezi” olarak konumlanıyor.
-Jello’nun çekirdeğinde, tüm modülleri yöneten bir ana kontrat (Main Hub) ve her özelliği bağımsız birer akıllı kontrat olarak sisteme bağlayan modüler mimari bulunuyor. Kullanıcı projeye geldiğinde, kurucu tarafından belirlenmiş 10 temel özelliği, işlem başına 0.1 CELO komisyon + gas ödeyerek kullanabiliyor. Sistemi deneyip mantığını anladıktan sonra, kullanıcı isterse Premium NFT Access Pass mint ederek sayfadaki tüm modülleri ve gelecekte eklenecek yeni özellikleri açabiliyor ve bu kez her işlemde sadece 0.01 CELO komisyon + gas ödüyor. Ekonomi tasarımı, eklenen her 50 yeni modülde NFT fiyatının +2 CELO artacak şekilde kurgulanmış durumda: Başlangıçta 50 modül için 5 CELO olan NFT, 100 modülde 7 CELO, 150 modülde 9 CELO oluyor. Böylece erken kullanıcılar daha düşük maliyetle sisteme girerken, platform büyüdükçe NFT’nin hem fonksiyonel hem ekonomik değeri artıyor.
+	•	Tek arayüz, çoklu özellik: Kullanıcı, farklı dApp’ler arasında dolaşmak yerine; GM, deploy, donate, mint, deneysel işlemler, sosyal aksiyonlar gibi onlarca özelliğe CeloModuleX içinden erişir.
+	•	Güçlü cüzdan profili: Kullanıcı, CeloModuleX üzerinden farklı modüllerle etkileşime geçtikçe, cüzdanı daha fazla akıllı kontratla işlem yapmış olur. Bu da:
+Sonuç olarak CeloModuleX, kullanıcıya “tek seferlik işlem dApp’i” değil, sürekli geri dönüp yeni şeyler deneyeceği bir on-chain oyun alanı sunar.
 
-3. Kullanıcıya Sağladığı Fayda
-Basit ama derin bir kullanıcı deneyimi:
-	•	Tek arayüz, çoklu özellik: Kullanıcı, farklı dApp’ler arasında dolaşmak yerine; GM, deploy, donate, mint, deneysel işlemler, sosyal aksiyonlar gibi onlarca özelliğe Jello içinden erişir.
-	•	Güçlü cüzdan profili: Kullanıcı, Jello üzerinden farklı modüllerle etkileşime geçtikçe, cüzdanı daha fazla akıllı kontratla işlem yapmış olur. Bu da:
-	◦	Airdrop eligibility,
-	◦	Wallet reputation,
-	◦	On-chain kimlik kredibilitesi gibi metrikleri güçlendirir.
-	•	Kademeli erişim modeli:
-	◦	Premium NFT’si olmayan kullanıcı:
-	▪	Kurucu tarafından seçilen 10 temel özelliği kullanabilir.
-	▪	Her işlemde 0.1 CELO + gas komisyon öder.
-	◦	Premium NFT Access Pass sahibi kullanıcı:
-	▪	Sayfadaki tüm modüllere ve eklenen yeni özelliklere erişebilir.
-	▪	Her işlemde sadece 0.01 CELO + gas komisyon öder.
-	•	Erken kullanıcı avantajı: NFT fiyatı modül sayısına bağlı olarak zamanla arttığı için, erken katılan kullanıcı:
-	◦	Daha düşük maliyetle NFT alır,
-	◦	Platform büyüdükçe hem daha fazla özelliğe erişir
-	◦	Hem de elindeki NFT, fonksiyonel açıdan daha değerli hâle gelir.
-	•	Oyunlaştırılmış deneyim: Ana kontrat; kullanıcı profilini, istatistiklerini ve modül bazlı etkileşimlerini kaydeder. Bu veriler:
-	◦	Leaderboard,
+Zincirler için CeloModuleX, bir “Aktivite Motoru”dur.
+	•	Kullanıcıları zincire bağlayan katman: CeloModuleX, özellikle yeni kullanıcılar için:
+	•	Proje ve geliştirici ekosistemine katkı: Gelecekte CeloModuleX’nun modülleri:
+	◦	CeloModuleX, zincir için bir tür “modül pazaryeri / aksiyon kütüphanesi” rolü üstlenebilir.
+	•	Zincirlerin “aktif kullanıcı” metriklerini güçlendirme: CeloModuleX, Celo, Base ve diğer EVM zincirleri için:
+Ekosistem gözünden bakıldığında CeloModuleX, tekil bir ürün değil, zincirlerin üzerine oturan, işlem hacmini ve kullanıcı deneyimini artıran bir altyapı katmanıdır.
+CeloModuleX’nun modüler mimarisi, proje vizyonunun kalbidir.
+	◦	Dış geliştiricilerin kendi modüllerini CeloModuleX’ya entegre ettiği,
+	◦	CeloModuleX’nun bir “modül ekosistemi / plug-in sistemi”ne dönüştüğü bir yapı mümkündür.
+Bu mimari sayesinde CeloModuleX, zamanla kalınlaşan ve zenginleşen bir “on-chain işlem kütüphanesi” hâline gelir.
+Stratejik hedef: CeloModuleX’yu tek bir zincirin ürünü değil, Web3 genelinde “on-chain aksiyon standardı” yapmak.
+	◦	Farklı teşvik yapısı var. CeloModuleX, bu ağların her birine:
+	◦	Celo’da CeloModuleX kullanıp,
+	•	Teşvik ve büyüme fırsatları: Multi-chain yapı, CeloModuleX’nun:
+CeloModuleX’nun gelir modeli, temelde iki güçlü ve birbirini besleyen katmandan oluşur:
+Bu yapı, CeloModuleX’yu:
+CeloModuleX tam bu boşluğa yerleşiyor.
+🟦 SLIDE 4 — What is CeloModuleX? (Short Definition)
+CeloModuleX, kullanıcıların tek bir platformdan yüzlerce akıllı kontrat özelliğine erişmesini sağlayan modüler, genişleyebilir, multi-chain bir on-chain aksiyon platformudur.
+CeloModuleX zamanla:
+CeloModuleX zincirler için bir “Activity Engine” olarak çalışır:
+Modüler yapı = CeloModuleX’nun “sonsuz genişleme” motoru.
+CeloModuleX’nun standartlaşması için global varlık şart
+CeloModuleX = Chain-Agnostic Action Layer
+CeloModuleX’nun 2 katmanlı gelir modeli:
 	◦	Rozetler,
 	◦	Skor tabanlı teşvikler için kullanılabilir.
 Sonuç olarak Jello, kullanıcıya “tek seferlik işlem dApp’i” değil, sürekli geri dönüp yeni şeyler deneyeceği bir on-chain oyun alanı sunar.
@@ -282,9 +289,9 @@ Tek ürün → Çok ağ → Katlanan kullanım
 
 Risk dağıtımı ve sürdürülebilirlik
 
-Jello’nun standartlaşması için global varlık şart
+CeloModuleX büyüdükçe ekonomi büyür:
 
-Jello = Chain-Agnostic Action Layer
+CeloModuleX,
 
 🟦 SLIDE 11 — Monetization Overview
 Jello’nun 2 katmanlı gelir modeli:
