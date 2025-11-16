@@ -6,8 +6,13 @@ pragma solidity ^0.8.20;
 /// @dev Bu sade sürüm, daha sonra eklenecek RBAC, ücret ve istatistik
 ///      mekanizmaları için temel görevleri tutar. Çatışmaları giderirken
 ///      yeni isimlendirmeyi garanti altına almak adına dosya başlığı da
-///      güncellenmiştir.
+///      güncellenmiştir. `PROJECT_NAME` sabiti, UI/otomasyon araçlarının
+///      zincir üstündeki dağıtımın gerçekten CeloModuleX çekirdeğine ait
+///      olduğunu doğrulamasına yardımcı olur.
 contract MainHub {
+    /// @notice Zincir üstü tüm bileşenler için tekil marka tanımlayıcı.
+    string public constant PROJECT_NAME = "CeloModuleX";
+
     address public owner;
 
     event ModuleRegistered(address indexed module, string name);

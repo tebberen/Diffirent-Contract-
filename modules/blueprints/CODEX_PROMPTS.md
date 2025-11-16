@@ -7,7 +7,7 @@ You are Codex, expert Solidity engineer. Given the following CeloModuleX bluepri
 - Implement a Solidity module inheriting BaseModule.
 - Respect `moduleType`, `eventSchema`, and `abiAssumptions`.
 - Emit MainHub stats hooks in `postAction`.
-- Include constructor wiring for MainHub + metadata (nameHash, version, premium).
+- Include constructor wiring for MainHub + metadata (nameHash, version, premium) and read the `PROJECT_NAME` constant for sanity checks.
 Return a single contract file with NatSpec comments.
 ```
 

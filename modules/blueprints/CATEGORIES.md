@@ -1,7 +1,9 @@
 # CeloModuleX Module Categories & Types
 
-> Not: Bu dosya, önceki Jello markasıyla yaşanan çakışmaları çözmek ve
-> CeloModuleX isimlendirmesini kesinleştirmek için güncellenmiştir.
+> Not: Bu dokümandaki her kategori MainHub sözleşmesindeki
+> `PROJECT_NAME` sabitiyle hizalanmıştır; yeni blueprint eklerken aynı
+> isimlendirmeyi kullanın ki zincir üstü kayıtlar ile dokümantasyon
+> birbirini doğrulasın.
 
 ## Canonical Categories
 - **social** — GM, link paylaşımı, topluluk etkileşimi.

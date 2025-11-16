@@ -45,3 +45,10 @@ fi
 printf '[deploy] NETWORK=%s\n' "$NETWORK"
 printf '[deploy] Komut: %s\n' "${cmd[*]}"
 "${cmd[@]}"
+
+cat <<'MSG'
+[deploy] İpucu: İşlem tamamlandıktan sonra aşağıdaki komutla zincirdeki
+[deploy] dağıtımın CeloModuleX MainHub olduğunu doğrulayabilirsiniz:
+[deploy]   cast call <deployed_address> "PROJECT_NAME()(string)"
+[deploy] çıktısının "CeloModuleX" olması gerekir.
+MSG

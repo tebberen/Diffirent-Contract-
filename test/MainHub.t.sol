@@ -9,4 +9,9 @@ contract MainHubTest is Test {
         MainHub hub = new MainHub();
         assertEq(hub.owner(), address(this));
     }
+
+    function testProjectNameConstant() public {
+        MainHub hub = new MainHub();
+        assertEq(hub.PROJECT_NAME(), "CeloModuleX");
+    }
 }
