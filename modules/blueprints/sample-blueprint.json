@@ -1,9 +1,0 @@
-{
-  "name": "GMModule",
-  "version": "0.0.1",
-  "category": "social",
-  "description": "GM gönderisi yapan basit modül",
-  "init": {
-    "cooldown": 60
-  }
-}
